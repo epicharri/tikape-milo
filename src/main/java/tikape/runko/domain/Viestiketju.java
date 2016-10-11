@@ -1,6 +1,6 @@
 
 package tikape.runko.domain;
-import tikape.runko.Aihealue;
+import tikape.runko.domain.Aihealue;
 
 public class Viestiketju {
     
