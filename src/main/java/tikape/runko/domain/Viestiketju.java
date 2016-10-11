@@ -7,6 +7,14 @@ public class Viestiketju {
     private Integer id;
     private String otsikko;
     private Aihealue aihealue;
+
+    public Aihealue getAihealue() {
+        return aihealue;
+    }
+
+    public void setAihealue(Aihealue aihealue) {
+        this.aihealue = aihealue;
+    }
     
     public Viestiketju(int id, String otsikko, Aihealue aihealue){
         this.id=id;
@@ -29,6 +37,5 @@ public class Viestiketju {
     public void setOtsikko(String otsikko) {
         this.otsikko = otsikko;
     }
-    
     
 }
