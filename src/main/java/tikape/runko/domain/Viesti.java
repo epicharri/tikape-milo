@@ -28,6 +28,10 @@ public class Viesti {
     public Integer getId() {
         return id;
     }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Viestiketju getViestiketju() {
         return viestiketju;
@@ -36,33 +40,25 @@ public class Viesti {
     public void setViestiketju(Viestiketju viestiketju) {
         this.viestiketju = viestiketju;
     }
-
     
-
     public String getNimimerkki() {
         return nimimerkki;
     }
 
+    public void setNimimerkki(String nimimerkki) {
+        this.nimimerkki = nimimerkki;
+    }
+    
     public String getSisalto() {
         return sisalto;
     }
 
-    public String getAika() {
-        return aika;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-   
-
-    public void setNimimerkki(String nimimerkki) {
-        this.nimimerkki = nimimerkki;
-    }
-
     public void setSisalto(String sisalto) {
         this.sisalto = sisalto;
+    }
+    
+    public String getAika() {
+        return aika;
     }
 
     public void setAika(String aika) {
