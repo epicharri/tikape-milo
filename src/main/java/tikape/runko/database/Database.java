@@ -40,27 +40,27 @@ public class Database {
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
         lista.add("CREATE TABLE Viesti (\n" +
-        "viesti_id integer PRIMARY KEY, \n" +
-        "aikadatetime NOT NULL, \n" +
+        "id integer PRIMARY KEY, \n" +
+        "aika datetime NOT NULL, \n" +
         "nimimerkki varchar(20) NOT NULL, \n" +
         "sisalto varchar(300) NOT NULL, \n" +
-        "viestiketju_id, FOREIGN KEY(viestiketju_id) REFERENCES Viestiketju(viestiketju_id));");
+        "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
         lista.add("CREATE TABLE Viestiketju (\n" +
-        "viestiketju_id integer PRIMARY KEY, \n" +
+        "id integer PRIMARY KEY, \n" +
         "otsikko varchar(30) NOT NULL,\n" +
-        "aihealue_id, \n" +
-        "FOREIGN KEY(aihealue_id) REFERENCES Aihealue(aihealue_id));");
+        "aihealue, \n" +
+        "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
         lista.add("CREATE TABLE Aihealue (\n" +
-        "aihealue_id integer PRIMARY KEY, \n" +
+        "id integer PRIMARY KEY, \n" +
         "nimi varchar(30) NOT NULL);");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Koirat');");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kilpikonnat'");
-        lista.add("INSERT INTO Viestiketju(otsikko, aihealue_id) VALUES ('Milo on cute!', 1);");
-        lista.add("INSERT INTO Viestiketju(otsikko, aihealue_id) VALUES ('Kissat on parast', 2);");
-        lista.add("INSERT INTO Viestiketju(otsikko, aihealue_id) VALUES ('Kilpparit haisee', 3);");
-        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju_id) VALUES(datetime('now', 'localtime'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 4);");
-        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju_id) VALUES(datetime('now', 'localtime'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
+        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Milo on cute!', 1);");
+        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kissat on parast', 2);");
+        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kilpparit haisee', 3);");
+        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 4);");
+        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
         return lista;
     }
 }
