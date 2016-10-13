@@ -18,6 +18,12 @@ import tikape.runko.domain.Viestiketju;
  */
 public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
 
+    private Database database;
+    
+    public ViestiketjuDao(Database database) {
+        this.database = database;
+    }
+
     @Override
     public Viestiketju findOne(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

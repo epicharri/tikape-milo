@@ -18,6 +18,12 @@ import tikape.runko.domain.Viesti;
  * @author wame
  */
 public class ViestiDao implements Dao<Viesti, Integer> {
+    
+    private Database database;
+    
+    public ViestiDao(Database database){
+        this.database = database;
+    }
 
     @Override
     public Viesti findOne(Integer key) throws SQLException {

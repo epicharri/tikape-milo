@@ -17,6 +17,12 @@ import tikape.runko.domain.Aihealue;
  */
 public class AihealueDao implements Dao<Aihealue, Integer> {
 
+    private Database database;
+    
+    public AihealueDao(Database database){
+        this.database = database;
+    }
+    
     @Override
     public Aihealue findOne(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
