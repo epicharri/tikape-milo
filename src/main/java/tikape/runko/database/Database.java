@@ -7,9 +7,17 @@ import java.util.List;
 public class Database {
 
     private String databaseAddress;
+    private boolean debug;
 
     public Database(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
+        
+        
+    }
+    
+    //tämä kopsattu 28.HelloOneToMany tehtävästä:
+    public void setDebugMode(boolean d) {
+        debug = d;
     }
 
     public Connection getConnection() throws SQLException {
@@ -39,20 +47,20 @@ public class Database {
         ArrayList<String> lista = new ArrayList<>();
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
-        lista.add("CREATE TABLE Viesti (\n" +
-        "id integer PRIMARY KEY, \n" +
-        "aika datetime NOT NULL, \n" +
-        "nimimerkki varchar(20) NOT NULL, \n" +
-        "sisalto varchar(300) NOT NULL, \n" +
-        "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
-        lista.add("CREATE TABLE Viestiketju (\n" +
-        "id integer PRIMARY KEY, \n" +
-        "otsikko varchar(30) NOT NULL,\n" +
-        "aihealue, \n" +
-        "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
-        lista.add("CREATE TABLE Aihealue (\n" +
-        "id integer PRIMARY KEY, \n" +
-        "nimi varchar(30) NOT NULL);");
+        lista.add("CREATE TABLE Viesti (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "aika datetime NOT NULL, \n"
+                + "nimimerkki varchar(20) NOT NULL, \n"
+                + "sisalto varchar(300) NOT NULL, \n"
+                + "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
+        lista.add("CREATE TABLE Viestiketju (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "otsikko varchar(30) NOT NULL,\n"
+                + "aihealue, \n"
+                + "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
+        lista.add("CREATE TABLE Aihealue (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "nimi varchar(30) NOT NULL);");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Koirat');");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kilpikonnat'");
@@ -63,4 +71,41 @@ public class Database {
         lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
         return lista;
     }
+    
+    //tämä kopsattu 28.HelloOneToMany tehtävästä:
+    public int update(String updateQuery, Object... params) throws SQLException {
+        Connection conn = getConnection();
+        PreparedStatement stmt = conn.prepareStatement(updateQuery);
+
+        for (int i = 0; i < params.length; i++) {
+            stmt.setObject(i + 1, params[i]);
+        }
+
+        int changes = stmt.executeUpdate();
+
+        if (debug) {
+            System.out.println("---");
+            System.out.println(updateQuery);
+            System.out.println("Changed rows: " + changes);
+            System.out.println("---");
+        }
+
+        stmt.close();
+        conn.close();
+
+        return changes;
+    }
+
+    //tämä kopsattu 28.HelloOneToMany tehtävästä:
+    private void debug(ResultSet rs) throws SQLException {
+        int columns = rs.getMetaData().getColumnCount();
+        for (int i = 0; i < columns; i++) {
+            System.out.print(
+                    rs.getObject(i + 1) + ":"
+                    + rs.getMetaData().getColumnName(i + 1) + "  ");
+        }
+
+        System.out.println();
+    }
+
 }
