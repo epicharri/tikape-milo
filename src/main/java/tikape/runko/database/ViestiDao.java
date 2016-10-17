@@ -13,15 +13,17 @@ import tikape.runko.domain.Viestiketju;
 public class ViestiDao implements Dao<Viesti, Integer> {
 
     private Database database;
+    private ViestiketjuDao viestiketjuDao;
 
     public ViestiDao(Database database) {
         this.database = database;
+        this.viestiketjuDao = new ViestiketjuDao(database);
     }
 
     @Override
     public Viesti findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Agent WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti WHERE id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -35,8 +37,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         String aika = rs.getString("aika");
         String sisalto = rs.getString("sisalto");
 
-        //muokkaa tämä!!!:
-        Viestiketju viestiketju = viestiketju.findOne(rs.getInt("id"));
+        Viestiketju viestiketju = this.viestiketjuDao.findOne(rs.getInt("id"));
 
         Viesti v = new Viesti(id, viestiketju, nimimerkki, sisalto, aika);
 
