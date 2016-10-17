@@ -39,13 +39,11 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         Viestiketju viestiketju = this.viestiketjuDao.findOne(rs.getInt("id"));
 
-        Viesti v = new Viesti(id, viestiketju, nimimerkki, sisalto, aika);
-
         rs.close();
         stmt.close();
         connection.close();
 
-        return v;
+        return new Viesti(id, viestiketju, nimimerkki, sisalto, aika);
     }
 
     @Override
@@ -53,8 +51,8 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti");
-
         ResultSet rs = stmt.executeQuery();
+
         List<Viesti> viestit = new ArrayList<>();
         while (rs.next()) {
             int id = rs.getInt("id");
@@ -62,8 +60,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
             String aika = rs.getString("aika");
             String sisalto = rs.getString("sisalto");
 
-            //muokkaa tämä!!!:
-            Viestiketju viestiketju = null;
+            Viestiketju viestiketju = this.viestiketjuDao.findOne(rs.getInt("id"));
 
             viestit.add(new Viesti(id, viestiketju, nimimerkki, sisalto, aika));
         }
@@ -73,25 +70,53 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         connection.close();
 
         return viestit;
-
     }
 
     @Override
     public void delete(Integer key) throws SQLException {
 
-        try (Connection connection = database.getConnection();) {
+        Connection connection = database.getConnection();
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("DELETE FROM Viesti WHERE id = " + key);
 
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DELETE FROM Viesti WHERE id = " + key);
-
-            stmt.close();
-            connection.close();
-
-        } catch (Throwable t) {
-
-            System.out.println("Error >> " + t.getMessage());
-        }
+        stmt.close();
+        connection.close();
 
     }
 
+        public List<Viesti> findByViestiketju(Integer viestiketjuId) throws SQLException {
+
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti WHERE viestiketju = ?");
+        stmt.setObject(1, viestiketjuId);
+        ResultSet rs = stmt.executeQuery();
+
+        List<Viesti> viestit = new ArrayList<>();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nimimerkki = rs.getString("nimimerkki");
+            String aika = rs.getString("aika");
+            String sisalto = rs.getString("sisalto");
+
+            Viestiketju viestiketju = this.viestiketjuDao.findOne(rs.getInt("id"));
+
+            viestit.add(new Viesti(id, viestiketju, nimimerkki, sisalto, aika));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return viestit;
+    }
+        // Aika puuttuu!
+        public void createViesti(Integer viestiketjuId, String nimimerkki, String sisalto) throws SQLException {
+            Connection connection = database.getConnection();
+            Statement stmt = connection.createStatement();
+            
+            stmt.executeUpdate("INSERT INTO Viesti(viestiketju, aika, nimimerkki, sisalto) VALUES(" + viestiketjuId + ", " + null + ", " + nimimerkki + ", " + sisalto + ")" );
+            
+            stmt.close();
+            connection.close();
+        }
 }

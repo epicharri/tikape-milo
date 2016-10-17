@@ -13,7 +13,6 @@ import tikape.runko.domain.Viestiketju;
 public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
 
     private Database database;
-    private Aihealue aihealue;
     private AihealueDao aihealueDao;
 
     public ViestiketjuDao(Database database) {
@@ -38,21 +37,19 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
 
         Aihealue aihealue = this.aihealueDao.findOne(rs.getInt("aihealue"));
 
-        Viestiketju v = new Viestiketju(id, otsikko, aihealue);
-
         rs.close();
         stmt.close();
         connection.close();
 
-        return v;
+        return new Viestiketju(id, otsikko, aihealue);
     }
 
     @Override
     public List<Viestiketju> findAll() throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju");
-
         ResultSet rs = stmt.executeQuery();
+
         List<Viestiketju> viestit = new ArrayList<>();
         while (rs.next()) {
             int id = rs.getInt("id");
@@ -72,21 +69,47 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
-        
-        try (Connection connection = database.getConnection();) {
 
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DELETE FROM Viestiketju WHERE id = " + key);
+        Connection connection = database.getConnection();
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("DELETE FROM Viestiketju WHERE id = " + key);
 
-            stmt.close();
-            connection.close();
+        stmt.close();
+        connection.close();
 
-        } catch (Throwable t) {
+    }
 
-            System.out.println("Error >> " + t.getMessage());
+    public List<Viestiketju> findByAihelue(Integer aihealueId) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju WHERE aihealue=?");
+        stmt.setObject(1, aihealueId);
+        ResultSet rs = stmt.executeQuery();
+
+        List<Viestiketju> viestit = new ArrayList<>();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String otsikko = rs.getString("otsikko");
+
+            Aihealue aihealue = this.aihealueDao.findOne(rs.getInt("aihealue"));
+
+            viestit.add(new Viestiketju(id, otsikko, aihealue));
         }
 
-        
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return viestit;
+    }
+    
+    public void createViestiketju(Integer aihealueId, String otsikko) throws SQLException {
+        Connection connection = database.getConnection();
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("INSERT INTO Viestiketju(aihealue, otsikko) VALUES("+ aihealueId + ", " + otsikko + ")");
+
+        stmt.close();
+        connection.close();
+
     }
 
 }

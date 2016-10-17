@@ -16,6 +16,29 @@ public class Main {
         ViestiDao vDao = new ViestiDao(database);
         ViestiketjuDao vkDao= new ViestiketjuDao(database);
         AihealueDao aDao = new AihealueDao(database);
+        
+        get("/aihealueet", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("aihealueet", aDao.findAll());
+
+            return new ModelAndView(map, "aihealueet");
+        }, new ThymeleafTemplateEngine());
+        
+        get("/aihealueet/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("viestiketjut", vkDao.findByAihelue(Integer.parseInt(req.params("id"))));
+
+            return new ModelAndView(map, "viestiketjut");
+        }, new ThymeleafTemplateEngine());
+        
+        get("/aihealueet/viestiketju/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("viestit", vDao.findByViestiketju(Integer.parseInt(req.params("id"))));
+
+            return new ModelAndView(map, "viestit");
+        }, new ThymeleafTemplateEngine());
+        
+        
 
 //        OpiskelijaDao opiskelijaDao = new OpiskelijaDao(database);
 //

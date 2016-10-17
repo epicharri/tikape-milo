@@ -32,27 +32,25 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
         int id = rs.getInt("id");
         String nimi = rs.getString("nimi");
 
-        Aihealue a = new Aihealue(id, nimi);
-
         rs.close();
         stmt.close();
         connection.close();
 
-        return a;
+        return new Aihealue(id, nimi);
 
     }
 
     @Override
     public List<Aihealue> findAll() throws SQLException {
-        
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti");
 
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue");
         ResultSet rs = stmt.executeQuery();
+
         List<Aihealue> aihealueet = new ArrayList<>();
         while (rs.next()) {
             int id = rs.getInt("id");
-            String nimi= rs.getString("nimi");
+            String nimi = rs.getString("nimi");
 
             aihealueet.add(new Aihealue(id, nimi));
         }
@@ -67,18 +65,23 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
-         try (Connection connection = database.getConnection();) {
+        Connection connection = database.getConnection();
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("DELETE FROM Aihealue WHERE id = " + key);
 
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DELETE FROM Aihealue WHERE id = " + key);
+        stmt.close();
+        connection.close();
 
-            stmt.close();
-            connection.close();
-
-        } catch (Throwable t) {
-
-            System.out.println("Error >> " + t.getMessage());
-        }
     }
 
+    public void createAihealue(String nimi) throws SQLException {
+        Connection connection = database.getConnection();
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("INSERT INTO Aihealue(nimi) VALUES(" + nimi + ")");
+
+        stmt.close();
+        connection.close();
+
+    }
+    
 }
