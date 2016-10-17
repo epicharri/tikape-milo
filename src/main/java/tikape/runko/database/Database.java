@@ -72,6 +72,7 @@ public class Database {
         return lista;
     }
     
+    
     //tämä kopsattu 28.HelloOneToMany tehtävästä:
     public int update(String updateQuery, Object... params) throws SQLException {
         Connection conn = getConnection();
