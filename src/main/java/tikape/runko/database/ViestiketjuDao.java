@@ -16,6 +16,8 @@ import tikape.runko.domain.Viestiketju;
  *
  * @author wame
  */
+
+// Tämä kommentti on gitin testaamista varten
 public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
 
     private Database database;
