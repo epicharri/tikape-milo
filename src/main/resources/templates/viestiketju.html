@@ -7,18 +7,12 @@
     </head>
 
     <body>
-        <h1></h1>
-<!--        <ul>
-
-            <li th:each="viestiketju: ${viestiketjut}">
-                <span th:text="${viestiketju.id}">1</span>
-            </li>
-        </ul>-->
+        <h1 th:text="${aihealue.nimi}">nimi</h1>
 
         <ul>
             <li th:each="viestiketju: ${viestiketjut}">
-                <a th:href="@{~/viestiketju/{id}(id=${viestiketju.id})}"
-                   th:text="${aihealue.nimi}">1</a>
+                <a th:href="@{~/aihealue/viestiketju/{id}(id=${viestiketju.id})}"
+                   th:text="${viestiketju.otsikko}">1</a>
             </li>
         </ul>
 

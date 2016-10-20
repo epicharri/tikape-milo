@@ -51,9 +51,16 @@ public class Main {
         get("/aihealue/viestiketju/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("viestit", vDao.findByViestiketju(Integer.parseInt(req.params("id"))));
-
+            map.put("viestiketju", vkDao.findOne(Integer.parseInt(req.params("id"))));
+            map.put("aihealue", aDao.findOne(vkDao.findOne(Integer.parseInt(req.params("id"))).getAihealue().getId()));
             return new ModelAndView(map, "viesti");
         }, new ThymeleafTemplateEngine());
+        
+        post("/aihealue/viestiketju/:id", (req, res) -> {
+            vDao.createViesti(Integer.parseInt(req.params("id")), req.queryParams("nimimerkki"), req.queryParams("sisalto"));
+            res.redirect("/aihealue/viestiketju/" + req.params(":id"));
+            return "ok";
+        });        
 
         get("/viestit", (req, res) -> {
             HashMap map = new HashMap<>();

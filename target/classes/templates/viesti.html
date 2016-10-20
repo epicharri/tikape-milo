@@ -1,19 +1,28 @@
 
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
- 
+
     <head>
         <title>Viesti</title>
         <meta charset="UTF-8"/>
-       
+
     </head>
     <body>
+        <h1 th:text="${viestiketju.otsikko}">teksti</h1> 
         <div>Moi, tähän pitäs listautua viestit</div>
         <ul>
-           
+
             <li th:each="viesti: ${viestit}">
-                <span th:text="${viesti.sisalto}">1</span>
+                <span th:text="${viesti.sisalto} + ' ' + ${viesti.aika} ">1</span>
+                
             </li>
         </ul>
+
+        <form method="POST" >
+            
+            <input type="text" name="nimimerkki"/><br/>
+            <input type="text" name="sisalto"/><br/>
+            <input type="submit" value="Lähetä viesti"/>
+        </form>
     </body>
 </html>

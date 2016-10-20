@@ -88,7 +88,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti WHERE viestiketju = ?");
-        stmt.setObject(1, viestiketjuId);
+        stmt.setObject(1, Integer.toString(viestiketjuId));
         ResultSet rs = stmt.executeQuery();
 
         List<Viesti> viestit = new ArrayList<>();

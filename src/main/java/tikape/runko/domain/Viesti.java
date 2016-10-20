@@ -6,23 +6,24 @@
 package tikape.runko.domain;
 import tikape.runko.domain.Viestiketju;
 import tikape.runko.domain.Aihealue;
-/**
- *
- * @author wame
- */
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class Viesti {
 
     private Integer id;
     private Viestiketju viestiketju;
     private String nimimerkki;
     private String sisalto;
-    private String aika;
+    private Timestamp aika;
+    private java.util.Date paiva;
 
     public Viesti(Integer id, Viestiketju viestiketju, String nimimerkki, String sisalto, String aika) {
         this.id = id;
         this.nimimerkki = nimimerkki;
         this.sisalto = sisalto;
-        this.aika = aika;
+        this.paiva = new java.util.Date();
+        this.aika = new Timestamp(paiva.getTime());
     }
 
     public Integer getId() {
@@ -57,11 +58,11 @@ public class Viesti {
         this.sisalto = sisalto;
     }
     
-    public String getAika() {
+    public Timestamp getAika() {
         return aika;
     }
 
-    public void setAika(String aika) {
+    public void setAika(Timestamp aika) {
         this.aika = aika;
     }
     
