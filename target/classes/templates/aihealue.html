@@ -1,0 +1,29 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Aiheet</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h1>Aihealueet</h1>
+
+        <ul>
+            <li th:each="aihealue: ${aihealueet}">
+                <a th:href="@{~/aihealue/{id}(id=${aihealue.id})}"
+                   th:text="${aihealue.nimi}">1</a>
+            </li>
+        </ul>
+
+        <h3>Luo uusi aihealue</h3>
+
+        <form method="POST" action="/aihealue">
+            <p>Aihealueen nimi:</p>
+            <input type="text" name="aihealue"/><br/>
+            <input type="submit" value="Lisää aihealue"/>
+        </form>
+
+
+        
+    </body>
+</html>

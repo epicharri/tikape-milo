@@ -8,59 +8,59 @@ import tikape.runko.database.Database;
 import tikape.runko.database.*;
 
 public class Main {
-// TESTATAAN ENSIN GITTIÄ
+
     public static void main(String[] args) throws Exception {
         Database database = new Database("jdbc:sqlite:foorumi.db");
         database.init();
-        
+
         ViestiDao vDao = new ViestiDao(database);
-        ViestiketjuDao vkDao= new ViestiketjuDao(database);
+        ViestiketjuDao vkDao = new ViestiketjuDao(database);
         AihealueDao aDao = new AihealueDao(database);
-        
-        get("/aihealueet", (req, res) -> {
+
+        get("/", (req, res) -> {
+            HashMap map = new HashMap<>();
+            return new ModelAndView(map, "index");
+        }, new ThymeleafTemplateEngine());
+
+        get("/aihealue", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("aihealueet", aDao.findAll());
 
-            return new ModelAndView(map, "aihealueet");
+            return new ModelAndView(map, "aihealue");
         }, new ThymeleafTemplateEngine());
-        
-        get("/aihealueet/:id", (req, res) -> {
+
+        post("/aihealue", (req, res) -> {
+            aDao.createAihealue(req.queryParams("aihealue"));
+            res.redirect("/aihealue");
+            return "ok";
+        });
+
+        get("/aihealue/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("viestiketjut", vkDao.findByAihelue(Integer.parseInt(req.params("id"))));
-
-            return new ModelAndView(map, "viestiketjut");
+            map.put("aihealue", aDao.findOne(Integer.parseInt(req.params("id"))));
+            return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
-        
-        get("/aihealueet/viestiketju/:id", (req, res) -> {
+
+        post("/aihealue/:id", (req, res) -> {
+            vkDao.createViestiketju(Integer.parseInt(req.params("id")), req.queryParams("viestiketju"));
+            res.redirect("/aihealue/" + req.params(":id"));
+            return "ok";
+        });
+
+        get("/aihealue/viestiketju/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("viestit", vDao.findByViestiketju(Integer.parseInt(req.params("id"))));
 
-            return new ModelAndView(map, "viestit");
+            return new ModelAndView(map, "viesti");
         }, new ThymeleafTemplateEngine());
-        
-        
 
-//        OpiskelijaDao opiskelijaDao = new OpiskelijaDao(database);
-//
-//        get("/", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("viesti", "tervehdys");
-//
-//            return new ModelAndView(map, "index");
-//        }, new ThymeleafTemplateEngine());
-//
-//        get("/opiskelijat", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("opiskelijat", opiskelijaDao.findAll());
-//
-//            return new ModelAndView(map, "opiskelijat");
-//        }, new ThymeleafTemplateEngine());
-//
-//        get("/opiskelijat/:id", (req, res) -> {
-//            HashMap map = new HashMap<>();
-//            map.put("opiskelija", opiskelijaDao.findOne(Integer.parseInt(req.params("id"))));
-//
-//            return new ModelAndView(map, "opiskelija");
-//        }, new ThymeleafTemplateEngine());
+        get("/viestit", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("viestit", vDao.findAll());
+
+            return new ModelAndView(map, "viesti");
+        }, new ThymeleafTemplateEngine());
+
     }
 }

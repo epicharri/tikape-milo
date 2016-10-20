@@ -81,20 +81,20 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
 
     public List<Viestiketju> findByAihelue(Integer aihealueId) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju WHERE aihealue=?");
-        stmt.setObject(1, aihealueId);
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju WHERE aihealue LIKE ?");
+        stmt.setObject(1, Integer.toString(aihealueId) );
         ResultSet rs = stmt.executeQuery();
-
+        Aihealue aihealue = this.aihealueDao.findOne(aihealueId);
+        
         List<Viestiketju> viestit = new ArrayList<>();
         while (rs.next()) {
             int id = rs.getInt("id");
             String otsikko = rs.getString("otsikko");
-
-            Aihealue aihealue = this.aihealueDao.findOne(rs.getInt("aihealue"));
+            
 
             viestit.add(new Viestiketju(id, otsikko, aihealue));
         }
-
+        System.out.println("VIESTIKETJUT: " + viestit);
         rs.close();
         stmt.close();
         connection.close();
@@ -105,7 +105,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     public void createViestiketju(Integer aihealueId, String otsikko) throws SQLException {
         Connection connection = database.getConnection();
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("INSERT INTO Viestiketju(aihealue, otsikko) VALUES("+ aihealueId + ", " + otsikko + ")");
+        stmt.executeUpdate("INSERT INTO Viestiketju(aihealue, otsikko) VALUES('"+ aihealueId + "', '" + otsikko + "')");
 
         stmt.close();
         connection.close();

@@ -114,7 +114,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
             Connection connection = database.getConnection();
             Statement stmt = connection.createStatement();
             
-            stmt.executeUpdate("INSERT INTO Viesti(viestiketju, aika, nimimerkki, sisalto) VALUES(" + viestiketjuId + ", " + null + ", " + nimimerkki + ", " + sisalto + ")" );
+            stmt.executeUpdate("INSERT INTO Viesti(viestiketju, aika, nimimerkki, sisalto) VALUES('" + viestiketjuId + "', '" + null + "', '" + nimimerkki + "', '" + sisalto + "')" );
             
             stmt.close();
             connection.close();
