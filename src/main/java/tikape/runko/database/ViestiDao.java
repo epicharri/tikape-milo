@@ -125,13 +125,14 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         connection.close();
     }
 
-    public int kaikkiViestit() throws SQLException {
+    public int kaikkiViestit() throws SQLException, NullPointerException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(id) FROM Viesti");
         ResultSet rs = stmt.executeQuery();
         
-        int määrä = rs.getInt(0);
-
+        int määrä;
+        
+        määrä = rs.getInt(1);
                 
         rs.close();
         stmt.close();

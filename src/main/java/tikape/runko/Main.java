@@ -16,6 +16,8 @@ public class Main {
         ViestiDao vDao = new ViestiDao(database);
         ViestiketjuDao vkDao = new ViestiketjuDao(database);
         AihealueDao aDao = new AihealueDao(database);
+        
+        System.out.println("viestejä" + vDao.kaikkiViestit());
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
