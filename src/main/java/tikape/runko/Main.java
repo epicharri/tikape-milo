@@ -28,11 +28,13 @@ public class Main {
             HashMap map = new HashMap<>();
             map.put("aihealueet", aDao.findAll());
             map.put("viestienMaara", vDao.kaikkiViestit());
+            
             //map.put("uudetViestit", vDao.uusinViesti());
 
             return new ModelAndView(map, "aihealue");
         }, new ThymeleafTemplateEngine());
 
+        
         post("/aihealue", (req, res) -> {
             aDao.createAihealue(req.queryParams("aihealue"));
             res.redirect("/aihealue");

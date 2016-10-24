@@ -8,15 +8,17 @@
     <body>
         <h1>Aihealueet</h1>
         <p>Viestejä yhteensä:</p> <p th:text="${viestienMaara}">maara</p>
-        <ul>
-            <li th:each="aihealue: ${aihealueet}">
-                <a th:href="@{~/aihealue/{id}(id=${aihealue.id})}"
-                   th:text="${aihealue.nimi}">1</a>
+        <table>
+            <tr th:each="aihealue: ${aihealueet}">
+                <td><a th:href="@{~/aihealue/{id}(id=${aihealue.id})}"
+                       th:text="${aihealue.nimi}">1</a></td>
                 
-                
-                
-            </li>
-        </ul>
+            </tr>
+            <tr th:each="aihealue: ${aihealueet}">
+                <td><a th:href="@{~/aihealue/{id}(id=${aihealue.id})}"
+                       th:text="${aihealue.nimi}">1</a></td>    
+            </tr>
+        </table>
 
         <h3>Luo uusi aihealue</h3>
 
