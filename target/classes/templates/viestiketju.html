@@ -8,7 +8,7 @@
 
     <body>
         <h1 th:text="${aihealue.nimi}">nimi</h1>
-
+        <p>Viestejä yhteensä:</p> <p th:text="${viestienMaara}">maara</p>
         <ul>
             <li th:each="viestiketju: ${viestiketjut}">
                 <a th:href="@{~/aihealue/viestiketju/{id}(id=${viestiketju.id})}"

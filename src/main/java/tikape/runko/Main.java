@@ -28,6 +28,7 @@ public class Main {
             HashMap map = new HashMap<>();
             map.put("aihealueet", aDao.findAll());
             map.put("viestienMaara", vDao.kaikkiViestit());
+            //map.put("uudetViestit", vDao.uusinViesti());
 
             return new ModelAndView(map, "aihealue");
         }, new ThymeleafTemplateEngine());
@@ -42,6 +43,7 @@ public class Main {
             HashMap map = new HashMap<>();
             map.put("viestiketjut", vkDao.findByAihelue(Integer.parseInt(req.params("id"))));
             map.put("aihealue", aDao.findOne(Integer.parseInt(req.params("id"))));
+            map.put("viestienMaara", vDao.findByViestiketju(Integer.parseInt(req.params("id"))));
             return new ModelAndView(map, "viestiketju");
         }, new ThymeleafTemplateEngine());
 

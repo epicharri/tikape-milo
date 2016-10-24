@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import tikape.runko.domain.Aihealue;
 import tikape.runko.domain.Viesti;
 import tikape.runko.domain.Viestiketju;
 
@@ -138,5 +139,35 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         stmt.close();
         connection.close();
         return määrä;
+    }
+    
+    public List<Viesti>  uusinViesti() throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(
+                "SELECT Viesti.sisalto FROM Viestiketju, Viesti, Aihealue"
+                + " WHERE aihealue.id = Viestiketju.aihealue"
+                        + "AND Viestiketju.id = Viesti.viestiketju"
+                        + "ORDER BY(Viesti.aika) DESC LIMIT 1");
+        //stmt.setObject(1, Integer.toString(aihealueId) );
+        ResultSet rs = stmt.executeQuery();
+        //Viesti viesti = this.viestiketjuDao.findOne(aihealueId);
+        List<Viesti> viestit = new ArrayList<>();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nimimerkki = rs.getString("nimimerkki");
+            String aika = rs.getString("aika");
+            String sisalto = rs.getString("sisalto");
+
+            Viestiketju viestiketju = this.viestiketjuDao.findOne(rs.getInt("id"));
+
+            viestit.add(new Viesti(id, viestiketju, nimimerkki, sisalto, aika));
+        }
+        
+        //String viesti = rs.getString("sisalto");
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return viestit;
     }
 }
