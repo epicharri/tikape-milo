@@ -30,6 +30,17 @@ public class Main {
             map.put("viestienMaara", vDao.kaikkiViestit());
             
             //map.put("uudetViestit", vDao.uusinViesti());
+           
+//Elisan kokeiluja: 
+//            List<Aihealue> kaikkiaihealueet = new ArrayList<>();
+//            kaikkiaihealueet = aDao.findAll();
+//
+//            for (Aihealue a : kaikkiaihealueet) {
+//                if (!aDao.viimeisinViesti(a.getId()).equals(null)) {
+//                    map.put(a.getNimi(), aDao.viimeisinViesti(a.getId()));
+//                }
+//
+//            }
 
             return new ModelAndView(map, "aihealue");
         }, new ThymeleafTemplateEngine());

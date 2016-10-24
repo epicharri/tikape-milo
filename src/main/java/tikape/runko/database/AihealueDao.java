@@ -84,6 +84,32 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
 
     } 
     
-    
+    //    public Viesti viimeisinViesti(Integer key) throws Exception {
+//
+//        Connection connection = database.getConnection();
+//        PreparedStatement stmt = connection.prepareStatement("SELECT Viesti.id FROM Viesti, Viestiketju, Aihealue "
+//                + "WHERE Aihealue.id = Viestiketju.aihealue "
+//                + "AND Viestiketju.id = Viesti.viestiketju "
+//                + "AND Aihealue.id = ? "
+//                + "ORDER BY(Viesti.aika) DESC "
+//                + "LIMIT 1");
+//        stmt.setObject(1, key);
+//
+//        ResultSet rs = stmt.executeQuery();
+//        boolean hasOne = rs.next();
+//        if (!hasOne) {
+//            return null;
+//        }
+//
+//        int id = rs.getInt("id");
+//        
+//        Viesti v = this.vDao.findOne(id);
+//
+//        rs.close();
+//        stmt.close();
+//        connection.close();
+//
+//        return v;
+//    }
     
 }
