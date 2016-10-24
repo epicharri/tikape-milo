@@ -15,15 +15,14 @@ public class Viesti {
     private Viestiketju viestiketju;
     private String nimimerkki;
     private String sisalto;
-    private Timestamp aika;
-    private java.util.Date paiva;
+    private String aika;
+    
 
     public Viesti(Integer id, Viestiketju viestiketju, String nimimerkki, String sisalto, String aika) {
         this.id = id;
         this.nimimerkki = nimimerkki;
         this.sisalto = sisalto;
-        this.paiva = new java.util.Date();
-        this.aika = new Timestamp(paiva.getTime());
+        this.aika = aika.toString();
     }
 
     public Integer getId() {
@@ -58,11 +57,11 @@ public class Viesti {
         this.sisalto = sisalto;
     }
     
-    public Timestamp getAika() {
+    public String getAika() {
         return aika;
     }
 
-    public void setAika(Timestamp aika) {
+    public void setAika(String aika) {
         this.aika = aika;
     }
     

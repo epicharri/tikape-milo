@@ -25,6 +25,7 @@ public class Main {
         get("/aihealue", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("aihealueet", aDao.findAll());
+            map.put("viestienMaara", vDao.kaikkiViestit());
 
             return new ModelAndView(map, "aihealue");
         }, new ThymeleafTemplateEngine());

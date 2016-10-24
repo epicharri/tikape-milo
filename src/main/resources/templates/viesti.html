@@ -8,20 +8,30 @@
 
     </head>
     <body>
-        <h1 th:text="${viestiketju.otsikko}">teksti</h1> 
-        <div>Moi, tähän pitäs listautua viestit</div>
-        <ul>
+        <h1 th:text="${viestiketju.aihealue.nimi} + ' &raquo; ' + ${viestiketju.otsikko}">teksti</h1> 
+       
+<!--        <ul>
 
             <li th:each="viesti: ${viestit}">
-                <span th:text="${viesti.sisalto} + ' ' + ${viesti.aika} ">1</span>
-                
-            </li>
-        </ul>
+                <span th:text="${viesti.nimimerkki} + ' ' + ${viesti.sisalto} + ' ' + ${viesti.aika} ">1</span>
 
+            </li>
+        </ul>-->
+        
+        <table style="width:500px">
+        <tr th:each="viesti: ${viestit}">
+            <td th:text="${viesti.nimimerkki} + ' ' + ${viesti.aika}">nimimerkki</td>
+            <td th:text="${viesti.sisalto}">nimimerkki</td>
+        </tr>
+        </table>    
+        <br/>
+        <br/>
         <form method="POST" >
-            
-            <input type="text" name="nimimerkki"/><br/>
-            <input type="text" name="sisalto"/><br/>
+            Nimimerkki: <br/>
+            <input type="text" name="nimimerkki" size="20" maxlength="20"/><br/>
+            <br/>            
+            Viesti:<br/>
+            <input type="text" name="sisalto" maxlength="300" style="width:300px;height:250px;" /><br/> <br/>
             <input type="submit" value="Lähetä viesti"/>
         </form>
     </body>

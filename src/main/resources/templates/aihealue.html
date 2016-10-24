@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1>Aihealueet</h1>
-
+        Viestejä yhteensä: <p th:text="${viestienMaara}">maara</p>
         <ul>
             <li th:each="aihealue: ${aihealueet}">
                 <a th:href="@{~/aihealue/{id}(id=${aihealue.id})}"

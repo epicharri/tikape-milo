@@ -82,6 +82,8 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
         stmt.close();
         connection.close();
 
-    }
+    } 
+    
+    
     
 }
