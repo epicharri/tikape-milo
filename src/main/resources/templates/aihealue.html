@@ -15,6 +15,9 @@
             <tr th:each="aihealue: ${aihealueet}">
                 <td><a th:href="@{~/aihealue/{id}(id=${aihealue.id})}"
                        th:text="${aihealue.nimi}">1</a></td>
+                <td th:text="${aihealue.sisalto}">viestinsisalto</td>
+                <td th:text="${aihealue.aika}">viestinaika</td>
+                
                
             </tr>
            

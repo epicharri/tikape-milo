@@ -16,6 +16,9 @@ public class Main {
         ViestiDao vDao = new ViestiDao(database);
         ViestiketjuDao vkDao = new ViestiketjuDao(database);
         AihealueDao aDao = new AihealueDao(database);
+        AihealueJaViimeisinViestiDao avDao = new AihealueJaViimeisinViestiDao(database);
+        
+        System.out.println("aiheet ja viimeisimmät viestit" + avDao.findAll());
        
         System.out.println("viestejä" + vDao.kaikkiViestit());
  
@@ -26,7 +29,7 @@ public class Main {
  
         get("/aihealue", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("aihealueet", aDao.findAll());
+            map.put("aihealueet", avDao.findAll());
             map.put("viestienMaara", vDao.kaikkiViestit());
            
             //map.put("uudetViestit", vDao.uusinViesti());
@@ -61,7 +64,7 @@ public class Main {
         }, new ThymeleafTemplateEngine());
  
         post("/aihealue/:id", (req, res) -> {
-            vkDao.createViestiketju(Integer.parseInt(req.params("id")), req.queryParams("viestiketju"));
+            vkDao.createViestiketju(Integer.parseInt(req.params("id")), req.queryParams("viestiketju"), req.queryParams("nimimerkki"), req.queryParams("sisalto"));
             res.redirect("/aihealue/" + req.params(":id"));
             return "ok";
         });

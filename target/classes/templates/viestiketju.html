@@ -4,12 +4,12 @@
     <head>
         <title>Otsikko</title>
         <meta charset="utf-8" />
-       
-       
+ 
+ 
     </head>
  
     <body>
-       
+ 
         <h1 th:text="${aihealue.nimi}">nimi</h1>
         <form>
             Viestejä yhteensä:<b><br th:text="${viestienMaara}">maara></br></b>
@@ -24,8 +24,13 @@
         <h3>Luo uusi viestiketju</h3>
  
         <form method="POST" >
-            <p>Otsikko:</p>
+            Otsikko:<br/>
             <input type="text" name="viestiketju"/><br/>
+            Nimimerkki: <br/>
+            <input type="text" name="nimimerkki" size="20" maxlength="20"/><br/>
+            <br/>            
+            Viesti:<br/>
+            <input type="text" name="sisalto" maxlength="300" style="width:300px;height:250px;" /><br/> <br/>
             <input type="submit" value="Lisää viestiketju"/>
         </form>
     </body>

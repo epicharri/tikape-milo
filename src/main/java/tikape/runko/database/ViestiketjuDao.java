@@ -105,15 +105,35 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         return viestit;
     }
    
-    public void createViestiketju(Integer aihealueId, String otsikko) throws SQLException {
+    public int uusinViestiketju() throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT MAX(id) FROM Viestiketju");
+ 
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+ 
+        int id = rs.getInt(1);
+       
+        rs.close();
+        stmt.close();
+        connection.close();
+       
+        return id;
+       
+    }
+ 
+    public void createViestiketju(Integer aihealueId, String otsikko, String nimimerkki, String sisalto) throws SQLException {
         Connection connection = database.getConnection();
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("INSERT INTO Viestiketju(aihealue, otsikko) "
-                + "VALUES('"+ aihealueId + "', '" + otsikko + "')");
+                + "VALUES('" + aihealueId + "', '" + otsikko + "')");
+       
  
+       
+        ViestiDao v = new ViestiDao(this.database);
+        v.createViesti(this.uusinViestiketju(), nimimerkki, sisalto);
         stmt.close();
         connection.close();
- 
     }
  
 }

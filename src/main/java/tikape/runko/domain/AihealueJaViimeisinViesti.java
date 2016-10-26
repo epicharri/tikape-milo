@@ -5,41 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import tikape.runko.database.Database;
 
 public class AihealueJaViimeisinViesti {
     
     private Integer id;
     private String nimi;
-    private Database database;
     private String aika;
-    private String viimeisinViesti;
+    private String sisalto;
 
-    public AihealueJaViimeisinViesti(Database database, Integer id, String nimi, String viimeisinViesti, String aika) throws SQLException{
+    public AihealueJaViimeisinViesti(Integer id, String nimi, String sisalto, String aika) throws SQLException{
+
         this.id = id;
         this.nimi = nimi;
-        
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT Viesti.id FROM Viesti, Viestiketju, Aihealue "
-                + "WHERE Aihealue.id = Viestiketju.aihealue "
-                + "AND Viestiketju.id = Viesti.viestiketju "
-                + "AND Aihealue.id = ? "
-                + "ORDER BY(Viesti.aika) DESC "
-                + "LIMIT 1");
-        stmt.setObject(1, this.id);
-
-        ResultSet rs = stmt.executeQuery();
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            
-        }
-
-        this.aika = rs.getString("aika");
-        this.viimeisinViesti = rs.getString("sisalto");
-
-        rs.close();
-        stmt.close();
-        connection.close();
+        this.sisalto = sisalto;
+        this.aika = aika;
         
     }
 
@@ -67,12 +46,13 @@ public class AihealueJaViimeisinViesti {
         this.aika = aika;
     }
 
-    public String getViimeisinViesti() {
-        return viimeisinViesti;
+    public String getSisalto() {
+        return sisalto;
     }
 
-    public void setViimeisinViesti(String viimeisinViesti) {
-        this.viimeisinViesti = viimeisinViesti;
+    public void setSisalto(String sisalto) {
+        this.sisalto = sisalto;
     }
+
     
 }
