@@ -85,7 +85,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
                 + "Viestiketju WHERE aihealue LIKE ?");
-        stmt.setObject(1, Integer.toString(aihealueId) );
+        stmt.setObject(1, Integer.toString(aihealueId));
         ResultSet rs = stmt.executeQuery();
         Aihealue aihealue = this.aihealueDao.findOne(aihealueId);
        

@@ -14,13 +14,18 @@
         <form>
             Viestejä yhteensä:<b><br th:text="${viestienMaara}">maara></br></b>
         </form>
-        <ul>
-            <li th:each="viestiketju: ${viestiketjut}">
-                <a th:href="@{~/aihealue/viestiketju/{id}(id=${viestiketju.id})}"
-                   th:text="${viestiketju.otsikko}">1</a>
-            </li>
-        </ul>
- 
+
+        <table>
+            <tr th:each="viestiketju: ${viestiketjut}">
+                <td><a th:href="@{~/aihealue/viestiketju/{id}(id=${viestiketju.id})}"
+                       th:text="${viestiketju.nimi}">1</a></td>
+                <td th:text="${viestiketju.viestienMaara}">viestienMaara</td> 
+                <td th:text="${viestiketju.sisalto}">viestinsisalto</td>
+                <td th:text="${viestiketju.aika}">viestinaika</td>                              
+            </tr>
+           
+        </table>
+
         <h3>Luo uusi viestiketju</h3>
  
         <form method="POST" >

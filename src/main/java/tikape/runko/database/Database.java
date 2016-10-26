@@ -97,7 +97,7 @@ public class Database {
         return changes;
     }
 
-    //tämä kopsattu 28.HelloOneToMany tehtävästä:
+
     private void debug(ResultSet rs) throws SQLException {
         int columns = rs.getMetaData().getColumnCount();
         for (int i = 0; i < columns; i++) {

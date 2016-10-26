@@ -1,4 +1,3 @@
-
 package tikape.runko.domain;
 
 import java.sql.PreparedStatement;
@@ -6,20 +5,31 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AihealueJaViimeisinViesti {
-    
+public class ViimeisinViesti implements Comparable<ViimeisinViesti>{
+
     private Integer id;
     private String nimi;
     private String aika;
     private String sisalto;
+    private int viestienMaara;
 
-    public AihealueJaViimeisinViesti(Integer id, String nimi, String sisalto, String aika) throws SQLException{
+    public ViimeisinViesti(Integer id, String nimi, String sisalto, String aika) throws SQLException {
 
         this.id = id;
         this.nimi = nimi;
         this.sisalto = sisalto;
         this.aika = aika;
-        
+
+    }
+
+    public ViimeisinViesti(Integer id, String nimi, String sisalto, String aika, int viestienMaara) throws SQLException {
+
+        this.id = id;
+        this.nimi = nimi;
+        this.sisalto = sisalto;
+        this.aika = aika;
+        this.viestienMaara = viestienMaara;
+
     }
 
     public Integer getId() {
@@ -54,5 +64,19 @@ public class AihealueJaViimeisinViesti {
         this.sisalto = sisalto;
     }
 
-    
+    public int getViestienMaara() {
+        return viestienMaara;
+    }
+
+    public void setViestienMaara(int viestienMaara) {
+        this.viestienMaara = viestienMaara;
+    }
+
+    @Override
+    public int compareTo(ViimeisinViesti o) {
+        
+        
+        return o.aika.compareTo(this.aika);
+    }
+
 }

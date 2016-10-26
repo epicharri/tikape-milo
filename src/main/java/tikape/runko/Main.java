@@ -16,11 +16,8 @@ public class Main {
         ViestiDao vDao = new ViestiDao(database);
         ViestiketjuDao vkDao = new ViestiketjuDao(database);
         AihealueDao aDao = new AihealueDao(database);
-        AihealueJaViimeisinViestiDao avDao = new AihealueJaViimeisinViestiDao(database);
-        
-        System.out.println("aiheet ja viimeisimmät viestit" + avDao.findAll());
-       
-        System.out.println("viestejä" + vDao.kaikkiViestit());
+        ViimeisinViestiDao vvDao = new ViimeisinViestiDao(database);
+
  
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -29,22 +26,8 @@ public class Main {
  
         get("/aihealue", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("aihealueet", avDao.findAll());
+            map.put("aihealueet", vvDao.AihealueJaViimeisinViesti());
             map.put("viestienMaara", vDao.kaikkiViestit());
-           
-            //map.put("uudetViestit", vDao.uusinViesti());
-           
-//Elisan kokeiluja:
-//            List<Aihealue> kaikkiaihealueet = new ArrayList<>();
-//            kaikkiaihealueet = aDao.findAll();
-//
-//            for (Aihealue a : kaikkiaihealueet) {
-//                if (!aDao.viimeisinViesti(a.getId()).equals(null)) {
-//                    map.put(a.getNimi(), aDao.viimeisinViesti(a.getId()));
-//                }
-//
-//            }
- 
             return new ModelAndView(map, "aihealue");
         }, new ThymeleafTemplateEngine());
  
@@ -57,7 +40,7 @@ public class Main {
  
         get("/aihealue/:id", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("viestiketjut", vkDao.findByAihelue(Integer.parseInt(req.params("id"))));
+            map.put("viestiketjut", vvDao.ViestiketjuJaViimeisinViesti(Integer.parseInt(req.params("id"))));
             map.put("aihealue", aDao.findOne(Integer.parseInt(req.params("id"))));
             map.put("viestienMaara", vDao.kaikkiViestitByAihealue(Integer.parseInt(req.params("id"))));
             return new ModelAndView(map, "viestiketju");
