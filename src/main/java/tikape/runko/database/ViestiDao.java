@@ -25,7 +25,8 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     @Override
     public Viesti findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
+                + "Viesti WHERE id = ?");
         stmt.setObject(1, key);
  
         ResultSet rs = stmt.executeQuery();
@@ -89,7 +90,8 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     public List<Viesti> findByViestiketju(Integer viestiketjuId) throws SQLException {
  
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti WHERE viestiketju = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
+                + "Viesti WHERE viestiketju = ?");
         stmt.setObject(1, Integer.toString(viestiketjuId));
         ResultSet rs = stmt.executeQuery();
  
@@ -120,7 +122,8 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         java.util.Date paiva = new java.util.Date();
         Timestamp aika = new Timestamp(paiva.getTime());
  
-        stmt.executeUpdate("INSERT INTO Viesti(viestiketju, aika, nimimerkki, sisalto) VALUES('" + viestiketjuId + "', '" + aika + "', '" + nimimerkki + "', '" + sisalto + "')");
+        stmt.executeUpdate("INSERT INTO Viesti(viestiketju, aika, nimimerkki, sisalto) "
+                + "VALUES('" + viestiketjuId + "', '" + aika + "', '" + nimimerkki + "', '" + sisalto + "')");
  
         stmt.close();
         connection.close();
@@ -143,10 +146,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
    
     public int kaikkiViestitByAihealue(Integer id) throws SQLException, NullPointerException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(v.id) \n" +
-        "FROM Aihealue a, Viestiketju vk, Viesti v\n" +
-        "WHERE a.id = vk.aihealue\n" +
-        "AND vk.id = v.viestiketju\n" +
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(v.id) " +
+        "FROM Aihealue a, Viestiketju vk, Viesti v " +
+        "WHERE a.id = vk.aihealue " +
+        "AND vk.id = v.viestiketju " +
         "AND a.id = ?;");
         stmt.setString(1, id.toString());
         ResultSet rs = stmt.executeQuery();
@@ -159,9 +162,9 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     }
     public int kaikkiViestitByViestiketju(Integer id) throws SQLException, NullPointerException{
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(v.id) \n" +
-        "FROM Viestiketju vk, Viesti v\n" +
-        "WHERE vk.id = v.viestiketju\n" +
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(v.id) " +
+        "FROM Viestiketju vk, Viesti v " +
+        "WHERE vk.id = v.viestiketju " +
         "AND vk.id = ?;");
         stmt.setString(1, id.toString());
         ResultSet rs = stmt.executeQuery();

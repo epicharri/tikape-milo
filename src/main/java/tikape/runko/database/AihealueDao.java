@@ -20,7 +20,8 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
     @Override
     public Aihealue findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
+                + "Aihealue WHERE id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();

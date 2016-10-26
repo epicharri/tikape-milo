@@ -23,7 +23,8 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     @Override
     public Viestiketju findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
+                + "Viestiketju WHERE id = ?");
         stmt.setObject(1, key);
  
         ResultSet rs = stmt.executeQuery();
@@ -47,7 +48,8 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     @Override
     public List<Viestiketju> findAll() throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
+                + "Viestiketju");
         ResultSet rs = stmt.executeQuery();
  
         List<Viestiketju> viestit = new ArrayList<>();
@@ -81,7 +83,8 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
  
     public List<Viestiketju> findByAihelue(Integer aihealueId) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju WHERE aihealue LIKE ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
+                + "Viestiketju WHERE aihealue LIKE ?");
         stmt.setObject(1, Integer.toString(aihealueId) );
         ResultSet rs = stmt.executeQuery();
         Aihealue aihealue = this.aihealueDao.findOne(aihealueId);
@@ -105,7 +108,8 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     public void createViestiketju(Integer aihealueId, String otsikko) throws SQLException {
         Connection connection = database.getConnection();
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("INSERT INTO Viestiketju(aihealue, otsikko) VALUES('"+ aihealueId + "', '" + otsikko + "')");
+        stmt.executeUpdate("INSERT INTO Viestiketju(aihealue, otsikko) "
+                + "VALUES('"+ aihealueId + "', '" + otsikko + "')");
  
         stmt.close();
         connection.close();
