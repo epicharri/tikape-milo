@@ -1,23 +1,25 @@
-
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
+ 
     <head>
         <title>Viesti</title>
         <meta charset="UTF-8"/>
-
+ 
     </head>
     <body>
-        <h1 th:text="${viestiketju.aihealue.nimi} + ' &raquo; ' + ${viestiketju.otsikko}">teksti</h1> 
+        <h1 th:text="${viestiketju.aihealue.nimi} + ' &raquo; ' + ${viestiketju.otsikko}">teksti</h1>
+        <form>
+            Viestejä yhteensä:<b><br th:text="${viestienMaara}">maara</br></b>
+        </form>
        
 <!--        <ul>
-
+ 
             <li th:each="viesti: ${viestit}">
                 <span th:text="${viesti.nimimerkki} + ' ' + ${viesti.sisalto} + ' ' + ${viesti.aika} ">1</span>
-
+ 
             </li>
         </ul>-->
-        
+       
         <table style="width:500px">
         <tr th:each="viesti: ${viestit}">
             <td th:text="${viesti.nimimerkki} + ' ' + ${viesti.aika}">nimimerkki</td>
