@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+ 
+    <head>
+        <title th:text="${viestiketju.aihealue.nimi} + ' &raquo; ' + ${viestiketju.otsikko}">teksti</title>
+        <meta charset="UTF-8"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+        <link rel="stylesheet" type ="text/css" media="all" href="/tyylit.css"/>
+ 
+    </head>
+    <body>
+        <h1 th:text="${viestiketju.aihealue.nimi} + ' &raquo; ' + ${viestiketju.otsikko}">teksti</h1>
+        <form>
+            Viestejä yhteensä:<b><br th:text="${viestienMaara}">maara</br></b>
+        </form>
+
+       
+        <table width="800">
+            <tr>
+                <th>Nimimerkki</th>
+                <th>Viesti</th>
+                <th>Aika</th>
+            </tr>
+            
+            <tr th:each="viesti: ${viestit}">
+                <td th:text="${viesti.nimimerkki}">nimimerkki</td>
+
+                <td th:text="${viesti.sisalto}">sisältö</td>
+                <td th:text="${viesti.aika}">aika</td>
+            </tr>
+        </table>    
+        <br/>
+        <br/>
+        <form method="POST" >
+            Nimimerkki: <br/>
+            <input type="text" name="nimimerkki" size="20" maxlength="20"/><br/>
+            <br/>            
+            Viesti:<br/>
+            <input type="text" name="sisalto" maxlength="300" style="width:300px;height:250px;" class="textarea" /><br/> <br/>
+            <input type="submit" value="Lähetä viesti" class="button"/>
+        </form>
+    </body>
+</html>

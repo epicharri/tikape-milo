@@ -98,20 +98,20 @@ public class Database {
         ArrayList<String> lista = new ArrayList<>();
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
-        lista.add("CREATE TABLE Viesti (\n"
-                + "id integer PRIMARY KEY, \n"
-                + "aika datetime NOT NULL, \n"
-                + "nimimerkki varchar(20) NOT NULL, \n"
-                + "sisalto varchar(300) NOT NULL, \n"
-                + "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
-        lista.add("CREATE TABLE Viestiketju (\n"
-                + "id integer PRIMARY KEY, \n"
-                + "otsikko varchar(30) NOT NULL,\n"
-                + "aihealue, \n"
-                + "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
-        lista.add("CREATE TABLE Aihealue (\n"
-                + "id integer PRIMARY KEY, \n"
-                + "nimi varchar(30) NOT NULL);");
+//        lista.add("CREATE TABLE Viesti (\n"
+//                + "id integer PRIMARY KEY, \n"
+//                + "aika datetime NOT NULL, \n"
+//                + "nimimerkki varchar(20) NOT NULL, \n"
+//                + "sisalto varchar(300) NOT NULL, \n"
+//                + "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
+//        lista.add("CREATE TABLE Viestiketju (\n"
+//                + "id integer PRIMARY KEY, \n"
+//                + "otsikko varchar(30) NOT NULL,\n"
+//                + "aihealue, \n"
+//                + "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
+//        lista.add("CREATE TABLE Aihealue (\n"
+//                + "id integer PRIMARY KEY, \n"
+//                + "nimi varchar(30) NOT NULL);");
 //        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Koirat');");
 //        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
 //        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kilpikonnat'");

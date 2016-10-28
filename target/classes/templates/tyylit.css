@@ -1,0 +1,74 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    background-color: #eeeeee;
+    padding: 20px;
+}
+
+table, th, td, tr {
+    margin: 2px;
+    padding: 2px;
+}
+
+th {
+    text-align: left;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+a:link {
+    color: black;
+    opacity: 0.6;
+}
+
+
+
+a:hover {
+    opacity: 1;
+}
+
+
+
+a:visited {
+    color: black;
+    opacity: 0.8;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000; 
+    
+    text-decoration: none;
+    color: white;
+    background-color: blue;
+    padding: 4px;
+}
+
+input.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    border-radius: 2px 2px 2px 2px;
+        -moz-border-radius: 2px 2px 2px 2px;
+        -webkit-border-radius: 2px 2px 2px 2px;
+    border: 0px solid #000000; 
+    
+    text-decoration: none;
+    color: white;
+    background-color: blue;
+    padding: 4px;
+}
+
+input.textarea {
+    vertical-align: text-top;
+}

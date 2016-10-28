@@ -1,0 +1,46 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+ 
+    <head>
+        <title>Aiheet</title>
+        <meta charset="utf-8" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+        <link rel="stylesheet" type ="text/css" media="all" href="/tyylit.css"/>
+    </head>
+    <body>
+        <h1>Aihealueet</h1>
+        <form>
+            Viestejä yhteensä:<b><br th:text="${viestienMaara}">maara</br></b>
+        </form>
+       
+        <table>
+            <tr>
+                <th>Aihealue</th>
+                <th>Uusin viesti</th>
+                <th>Aika</th>
+
+                
+            </tr>
+            <tr th:each="aihealue: ${aihealueet}">
+                <td><a th:href="@{~/aihealue/{id}(id=${aihealue.id})}"
+                       th:text="${aihealue.nimi}">1</a></td>
+                <td th:text="${aihealue.sisalto}">viestinsisalto</td>
+                <td th:text="${aihealue.aika}">24.10.2016 19:59:59</td>
+                
+               
+            </tr>
+           
+        </table>
+ 
+        <h3>Luo uusi aihealue</h3>
+ 
+        <form method="POST" action="/aihealue">
+            <p>Aihealueen nimi:</p>
+            <input type="text" name="aihealue"/><br/>
+            <input type="submit" value="Lisää aihealue" class="button"/>
+        </form>
+ 
+ 
+       
+    </body>
+</html>
