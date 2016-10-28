@@ -12,12 +12,17 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         String jdbcOsoite = "jdbc:sqlite:foorumi.db";
+        System.out.println("URL TSEKKAUS: DATABASE_URL = " +
+                System.getenv("DATABASE_URL").toString());
+        System.out.println("URL TSEKKAUS: JDBC_DATABASE_URL = " +
+                System.getenv("JDBC_DATABASE_URL").toString());
         
         if (System.getenv("PORT") != null) {
             port(Integer.valueOf(System.getenv("PORT")));
+            
         }
-        if (System.getenv("JDBC_DATABASE_URL") != null) {
-            jdbcOsoite = System.getenv("JDBC_DATABASE_URL");
+        if (System.getenv("DATABASE_URL") != null) {
+            jdbcOsoite = System.getenv("DATABASE_URL");
             System.out.println(jdbcOsoite);
         }
         
