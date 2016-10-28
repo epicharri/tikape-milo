@@ -90,12 +90,14 @@ public class Database {
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Koirat');");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kilpikonnat');");
+       
+        /*
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Milo on cute!', 1);");
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kissat on parast', 2);");
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kilpparit haisee', 3);");
         lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(('now'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 2);");
         lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(('now'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
-        
+        */
         return lista;
     }
     private List<String> sqliteLauseet() {
