@@ -69,19 +69,20 @@ public class Database {
         //lista.add("DROP TABLE Viesti");
         //lista.add("DROP TABLE Viestiketju");
         //lista.add("DROP TABLE Aihealue");
+        //alta poistettu id integer SERIAL PRIMARY KEY -lauseista integer.
         lista.add("CREATE TABLE Viesti (\n"
-                + "id integer SERIAL PRIMARY KEY, \n"
+                + "id SERIAL PRIMARY KEY, \n"
                 + "aika datetime NOT NULL, \n"
                 + "nimimerkki varchar(20) NOT NULL, \n"
                 + "sisalto varchar(300) NOT NULL, \n"
                 + "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
         lista.add("CREATE TABLE Viestiketju (\n"
-                + "id integer SERIAL PRIMARY KEY, \n"
+                + "id SERIAL PRIMARY KEY, \n"
                 + "otsikko varchar(30) NOT NULL,\n"
                 + "aihealue, \n"
                 + "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
         lista.add("CREATE TABLE Aihealue (\n"
-                + "id integer SERIAL PRIMARY KEY, \n"
+                + "id SERIAL PRIMARY KEY, \n"
                 + "nimi varchar(30) NOT NULL);");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Koirat');");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
