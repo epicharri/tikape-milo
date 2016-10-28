@@ -123,6 +123,9 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     }
  
     public void createViestiketju(Integer aihealueId, String otsikko, String nimimerkki, String sisalto) throws SQLException {
+        if (otsikko.isEmpty()||nimimerkki.isEmpty()||sisalto.isEmpty()){
+            return;
+        }
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viestiketju(aihealue, otsikko) "
                 + "VALUES( ?, ?)");

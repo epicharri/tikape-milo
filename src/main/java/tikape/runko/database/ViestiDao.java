@@ -117,6 +117,12 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     
  
     public void createViesti(Integer viestiketjuId, String nimimerkki, String sisalto) throws SQLException {
+        
+        if (nimimerkki.isEmpty()|| sisalto.isEmpty()){
+            return;
+        } else {
+            
+        
         Connection connection = database.getConnection();
         
  
@@ -131,6 +137,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         stmt.executeUpdate();
         stmt.close();
         connection.close();
+        }
     }
  
     public int kaikkiViestit() throws SQLException, NullPointerException {

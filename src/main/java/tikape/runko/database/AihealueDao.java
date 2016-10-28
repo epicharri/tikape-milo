@@ -77,6 +77,9 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
     }
 
     public void createAihealue(String nimi) throws SQLException {
+        if (nimi.isEmpty()){
+            return;
+        }
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Aihealue(nimi) VALUES(?)");
         stmt.setString(1, nimi);
