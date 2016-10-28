@@ -72,7 +72,7 @@ public class Database {
         //alta poistettu id integer SERIAL PRIMARY KEY -lauseista integer.
         lista.add("CREATE TABLE Viesti ("
                 + "id SERIAL PRIMARY KEY, "
-                + "aika datetime NOT NULL, "
+                + "aika timestamp [ (p) ] [ without time zone ] NOT NULL, "
                 + "nimimerkki varchar(20) NOT NULL, "
                 + "sisalto varchar(300) NOT NULL, "
                 + "viestiketju integer REFERENCES Viestiketju(id));");
@@ -89,8 +89,8 @@ public class Database {
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Milo on cute!', 1);");
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kissat on parast', 2);");
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kilpparit haisee', 3);");
-        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 4);");
-        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
+        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(('now'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 4);");
+        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(('now'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
         
         return lista;
     }
