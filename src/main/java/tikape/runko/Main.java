@@ -11,7 +11,14 @@ import tikape.runko.database.*;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Database database = new Database("jdbc:sqlite:foorumi.db");
+        String jdbcOsoite = "jdbc:sqlite:foorumi.db";
+         if (System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
+        if (System.getenv("DATABASE_URL") != null) {
+            jdbcOsoite = System.getenv("DATABASE_URL");
+        }  
+        Database database = new Database(jdbcOsoite);
         database.init();
  
          Spark.staticFileLocation("/templates");
