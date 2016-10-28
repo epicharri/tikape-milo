@@ -13,18 +13,18 @@ public class Main {
     public static void main(String[] args) throws Exception {
         String jdbcOsoite = "jdbc:sqlite:foorumi.db";
         
-         if (System.getenv("PORT") != null) {
+        if (System.getenv("PORT") != null) {
             port(Integer.valueOf(System.getenv("PORT")));
         }
         if (System.getenv("JDBC_DATABASE_URL") != null) {
-            jdbcOsoite = System.getenv("DATABASE_URL");
+            jdbcOsoite = System.getenv("JDBC_DATABASE_URL");
             System.out.println(jdbcOsoite);
         }
         
         Database database = new Database(jdbcOsoite);
         
  
-         Spark.staticFileLocation("/templates");
+        Spark.staticFileLocation("/templates");
         
         ViestiDao vDao = new ViestiDao(database);
         ViestiketjuDao vkDao = new ViestiketjuDao(database);
