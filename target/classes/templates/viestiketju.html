@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
  
     <head>
-        <title>Otsikko</title>
+        <title th:text="${aihealue.nimi}">nimi</title>
         <meta charset="utf-8" />
  
  
@@ -14,7 +14,15 @@
         <form>
             Viestejä yhteensä:<b><br th:text="${viestienMaara}">maara></br></b>
         </form>
-
+        <table width="600">
+            <tr>
+                <td>Viestiketjun nimi</td>
+                <td>Viestien määrä</td> 
+                <td>Viimeisin viesti</td>
+                <td>Viestinaika</td>                              
+            </tr>
+            
+        </table>
         <table>
             <tr th:each="viestiketju: ${viestiketjut}">
                 <td><a th:href="@{~/aihealue/viestiketju/{id}(id=${viestiketju.id})}"

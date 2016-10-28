@@ -58,7 +58,6 @@ public class Main {
             map.put("viestiketju", vkDao.findOne(Integer.parseInt(req.params("id"))));
             map.put("aihealue", aDao.findOne(vkDao.findOne(Integer.parseInt(req.params("id"))).getAihealue().getId()));
             map.put("viestienMaara", vDao.kaikkiViestitByViestiketju(Integer.parseInt(req.params("id"))));
-           // map.put("uusinViesti", vDao.uusinViesti());
             return new ModelAndView(map, "viesti");
         }, new ThymeleafTemplateEngine());
        

@@ -73,9 +73,9 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     public void delete(Integer key) throws SQLException {
  
         Connection connection = database.getConnection();
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("DELETE FROM Viestiketju WHERE id = " + key);
- 
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Viestiketju WHERE id = ?");
+        stmt.setString(1, key.toString());
+        stmt.executeQuery();
         stmt.close();
         connection.close();
  
@@ -124,10 +124,12 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
  
     public void createViestiketju(Integer aihealueId, String otsikko, String nimimerkki, String sisalto) throws SQLException {
         Connection connection = database.getConnection();
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("INSERT INTO Viestiketju(aihealue, otsikko) "
-                + "VALUES('" + aihealueId + "', '" + otsikko + "')");
-       
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viestiketju(aihealue, otsikko) "
+                + "VALUES( ?, ?)");
+        
+        stmt.setString(1, aihealueId.toString());
+        stmt.setString(2, otsikko);
+        stmt.executeUpdate();
  
        
         ViestiDao v = new ViestiDao(this.database);
