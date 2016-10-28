@@ -19,7 +19,7 @@ public class Main {
             jdbcOsoite = System.getenv("DATABASE_URL");
         }  
         Database database = new Database(jdbcOsoite);
-        database.init();
+        
  
          Spark.staticFileLocation("/templates");
         

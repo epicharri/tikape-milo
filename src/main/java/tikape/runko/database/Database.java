@@ -66,22 +66,22 @@ public class Database {
     }
     private List<String> postgreLauseet(){
         ArrayList<String> lista = new ArrayList<>();
-       // lista.add("DROP TABLE Viesti");
-       // lista.add("DROP TABLE Viestiketju");
+        //lista.add("DROP TABLE Viesti");
+        //lista.add("DROP TABLE Viestiketju");
         //lista.add("DROP TABLE Aihealue");
         lista.add("CREATE TABLE Viesti (\n"
-                + "id integer PRIMARY KEY, \n"
+                + "id integer SERIAL PRIMARY KEY, \n"
                 + "aika datetime NOT NULL, \n"
                 + "nimimerkki varchar(20) NOT NULL, \n"
                 + "sisalto varchar(300) NOT NULL, \n"
                 + "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
         lista.add("CREATE TABLE Viestiketju (\n"
-                + "id integer PRIMARY KEY, \n"
+                + "id integer SERIAL PRIMARY KEY, \n"
                 + "otsikko varchar(30) NOT NULL,\n"
                 + "aihealue, \n"
                 + "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
         lista.add("CREATE TABLE Aihealue (\n"
-                + "id integer PRIMARY KEY, \n"
+                + "id integer SERIAL PRIMARY KEY, \n"
                 + "nimi varchar(30) NOT NULL);");
         
         return lista;
