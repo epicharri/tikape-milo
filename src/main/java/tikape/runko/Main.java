@@ -21,8 +21,8 @@ public class Main {
             port(Integer.valueOf(System.getenv("PORT")));
             
         }
-        if (System.getenv("DATABASE_URL") != null) {
-            jdbcOsoite = System.getenv("DATABASE_URL");
+        if (System.getenv("JDBC_DATABASE_URL") != null) {
+            jdbcOsoite = System.getenv("JDBC_DATABASE_URL");
             System.out.println(jdbcOsoite);
         }
         

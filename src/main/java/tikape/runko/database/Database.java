@@ -30,7 +30,7 @@ public class Database {
 
                 String username = dbUri.getUserInfo().split(":")[0];
                 String password = dbUri.getUserInfo().split(":")[1];
-                String dbUrl = "postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+                String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
                 return DriverManager.getConnection(dbUrl, username, password);
             } catch (Throwable t) {
@@ -70,26 +70,30 @@ public class Database {
         //lista.add("DROP TABLE Viestiketju");
         //lista.add("DROP TABLE Aihealue");
         //alta poistettu id integer SERIAL PRIMARY KEY -lauseista integer.
+        lista.add("CREATE TABLE Aihealue ("
+                + "id serial UNIQUE PRIMARY KEY, "
+                + "nimi varchar(30) NOT NULL);");        
+        lista.add("CREATE TABLE Viestiketju ("
+                + "id serial UNIQUE PRIMARY KEY, "
+                + "otsikko varchar(30) NOT NULL,"
+                + "aihealue integer,"
+                + "FOREIGN KEY (aihealue) REFERENCES Aihealue(id));");       
         lista.add("CREATE TABLE Viesti ("
-                + "id SERIAL PRIMARY KEY, "
-                + "aika timestamp [ (p) ] [ without time zone ] NOT NULL, "
+                + "id serial UNIQUE PRIMARY KEY, "
+                + "aika timestamp  NOT NULL, "
                 + "nimimerkki varchar(20) NOT NULL, "
                 + "sisalto varchar(300) NOT NULL, "
-                + "viestiketju integer REFERENCES Viestiketju(id));");
-        lista.add("CREATE TABLE Viestiketju ("
-                + "id SERIAL PRIMARY KEY, "
-                + "otsikko varchar(30) NOT NULL,"
-                + "aihealue integer REFERENCES Aihealue(id));");
-        lista.add("CREATE TABLE Aihealue ("
-                + "id SERIAL PRIMARY KEY, "
-                + "nimi varchar(30) NOT NULL);");
+                + "viestiketju integer,"
+                + "FOREIGN KEY (viestiketju) REFERENCES Viestiketju(id));");
+    
+       
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Koirat');");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kilpikonnat');");
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Milo on cute!', 1);");
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kissat on parast', 2);");
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kilpparit haisee', 3);");
-        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(('now'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 4);");
+        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(('now'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 2);");
         lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(('now'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
         
         return lista;
