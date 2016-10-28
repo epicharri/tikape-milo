@@ -24,7 +24,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     public Viestiketju findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
-                + "Viestiketju WHERE id = ?");
+                + "Viestiketju WHERE id = ?;");
         stmt.setObject(1, key);
  
         ResultSet rs = stmt.executeQuery();
@@ -49,7 +49,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     public List<Viestiketju> findAll() throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
-                + "Viestiketju");
+                + "Viestiketju;");
         ResultSet rs = stmt.executeQuery();
  
         List<Viestiketju> viestit = new ArrayList<>();
@@ -73,7 +73,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     public void delete(Integer key) throws SQLException {
  
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Viestiketju WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Viestiketju WHERE id = ?;");
         stmt.setString(1, key.toString());
         stmt.executeQuery();
         stmt.close();
@@ -84,7 +84,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     public List<Viestiketju> findByAihelue(Integer aihealueId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
-                + "Viestiketju WHERE aihealue LIKE ?");
+                + "Viestiketju WHERE aihealue LIKE ?;");
         stmt.setObject(1, Integer.toString(aihealueId));
         ResultSet rs = stmt.executeQuery();
         Aihealue aihealue = this.aihealueDao.findOne(aihealueId);
@@ -107,7 +107,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
    
     public int uusinViestiketju() throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT MAX(id) FROM Viestiketju");
+        PreparedStatement stmt = connection.prepareStatement("SELECT MAX(id) FROM Viestiketju;");
  
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
@@ -128,7 +128,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         }
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viestiketju(aihealue, otsikko) "
-                + "VALUES( ?, ?)");
+                + "VALUES( ?, ?);");
         
         stmt.setString(1, aihealueId.toString());
         stmt.setString(2, otsikko);

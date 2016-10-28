@@ -22,7 +22,7 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
     public Aihealue findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
-                + "Aihealue WHERE id = ?");
+                + "Aihealue WHERE id = ?;");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -46,7 +46,7 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
      public List<Aihealue> findAll() throws SQLException {
  
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue;");
         ResultSet rs = stmt.executeQuery();
  
         List<Aihealue> aihealueet = new ArrayList<>();
@@ -68,7 +68,7 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
     @Override
     public void delete(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Aihealue WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Aihealue WHERE id = ?;");
         stmt.setString(1, key.toString());
         stmt.executeQuery();
         stmt.close();
@@ -81,7 +81,7 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
             return;
         }
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Aihealue(nimi) VALUES(?)");
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Aihealue(nimi) VALUES(?);");
         stmt.setString(1, nimi);
         stmt.executeUpdate();
         stmt.close();

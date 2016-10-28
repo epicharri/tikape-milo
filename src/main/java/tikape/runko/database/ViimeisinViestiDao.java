@@ -28,7 +28,7 @@ public class ViimeisinViestiDao {
     public List<ViimeisinViesti> AihealueJaViimeisinViesti() throws SQLException, Exception {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihealue;");
 
         ResultSet rs = stmt.executeQuery();
 
@@ -62,7 +62,7 @@ public class ViimeisinViestiDao {
 
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
-                + "Viestiketju WHERE aihealue LIKE ?");
+                + "Viestiketju WHERE aihealue LIKE ?;");
         stmt.setObject(1, Integer.toString(aihealueId));
 
         ResultSet rs = stmt.executeQuery();
@@ -109,7 +109,7 @@ public class ViimeisinViestiDao {
                 + "AND Viestiketju.id = Viesti.viestiketju "
                 + "AND Aihealue.id = ? "
                 + "ORDER BY(Viesti.aika) DESC "
-                + "LIMIT 1");
+                + "LIMIT 1;");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
