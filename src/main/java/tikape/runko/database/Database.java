@@ -66,9 +66,9 @@ public class Database {
     }
     private List<String> postgreLauseet(){
         ArrayList<String> lista = new ArrayList<>();
-        //lista.add("DROP TABLE Viesti");
-        //lista.add("DROP TABLE Viestiketju");
-        //lista.add("DROP TABLE Aihealue");
+        lista.add("DROP TABLE Viesti;");
+        lista.add("DROP TABLE Viestiketju;");
+        lista.add("DROP TABLE Aihealue;");
         //alta poistettu id integer SERIAL PRIMARY KEY -lauseista integer.
         lista.add("CREATE TABLE Aihealue ("
                 + "id serial UNIQUE PRIMARY KEY, "
