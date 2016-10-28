@@ -1,5 +1,6 @@
 package tikape.runko.database;
 
+import java.net.URI;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,10 @@ public class Database {
     public Database(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
         
-        
+        init();
     }
+    
+    
     
     //tämä kopsattu 28.HelloOneToMany tehtävästä:
     public void setDebugMode(boolean d) {
@@ -21,12 +24,31 @@ public class Database {
     }
 
     public Connection getConnection() throws SQLException {
+        if (this.databaseAddress.contains("postgres")) {
+            try {
+                URI dbUri = new URI(databaseAddress);
+
+                String username = dbUri.getUserInfo().split(":")[0];
+                String password = dbUri.getUserInfo().split(":")[1];
+                String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+
+                return DriverManager.getConnection(dbUrl, username, password);
+            } catch (Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
+            }
+        }
+
         return DriverManager.getConnection(databaseAddress);
     }
 
     public void init() {
-        List<String> lauseet = sqliteLauseet();
-
+        List<String> lauseet = null;
+        if (this.databaseAddress.contains("postgres")) {
+            lauseet = postgreLauseet();
+        } else {
+            lauseet = sqliteLauseet();
+        }
         // "try with resources" sulkee resurssin automaattisesti lopuksi
         try (Connection conn = getConnection()) {
             Statement st = conn.createStatement();
@@ -42,25 +64,46 @@ public class Database {
             System.out.println("Error >> " + t.getMessage());
         }
     }
-
+    private List<String> postgreLauseet(){
+        ArrayList<String> lista = new ArrayList<>();
+        lista.add("DROP TABLE Viesti");
+        lista.add("DROP TABLE Viestiketju");
+        lista.add("DROP TABLE Aihealue");
+        lista.add("CREATE TABLE Viesti (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "aika datetime NOT NULL, \n"
+                + "nimimerkki varchar(20) NOT NULL, \n"
+                + "sisalto varchar(300) NOT NULL, \n"
+                + "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
+        lista.add("CREATE TABLE Viestiketju (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "otsikko varchar(30) NOT NULL,\n"
+                + "aihealue, \n"
+                + "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
+        lista.add("CREATE TABLE Aihealue (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "nimi varchar(30) NOT NULL);");
+        
+        return lista;
+    }
     private List<String> sqliteLauseet() {
         ArrayList<String> lista = new ArrayList<>();
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
-//        lista.add("CREATE TABLE Viesti (\n"
-//                + "id integer PRIMARY KEY, \n"
-//                + "aika datetime NOT NULL, \n"
-//                + "nimimerkki varchar(20) NOT NULL, \n"
-//                + "sisalto varchar(300) NOT NULL, \n"
-//                + "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
-//        lista.add("CREATE TABLE Viestiketju (\n"
-//                + "id integer PRIMARY KEY, \n"
-//                + "otsikko varchar(30) NOT NULL,\n"
-//                + "aihealue, \n"
-//                + "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
-//        lista.add("CREATE TABLE Aihealue (\n"
-//                + "id integer PRIMARY KEY, \n"
-//                + "nimi varchar(30) NOT NULL);");
+        lista.add("CREATE TABLE Viesti (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "aika datetime NOT NULL, \n"
+                + "nimimerkki varchar(20) NOT NULL, \n"
+                + "sisalto varchar(300) NOT NULL, \n"
+                + "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
+        lista.add("CREATE TABLE Viestiketju (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "otsikko varchar(30) NOT NULL,\n"
+                + "aihealue, \n"
+                + "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
+        lista.add("CREATE TABLE Aihealue (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "nimi varchar(30) NOT NULL);");
 //        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Koirat');");
 //        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
 //        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kilpikonnat'");
