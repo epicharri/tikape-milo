@@ -66,9 +66,9 @@ public class Database {
     }
     private List<String> postgreLauseet(){
         ArrayList<String> lista = new ArrayList<>();
-        lista.add("DROP TABLE Viesti");
-        lista.add("DROP TABLE Viestiketju");
-        lista.add("DROP TABLE Aihealue");
+       // lista.add("DROP TABLE Viesti");
+       // lista.add("DROP TABLE Viestiketju");
+        //lista.add("DROP TABLE Aihealue");
         lista.add("CREATE TABLE Viesti (\n"
                 + "id integer PRIMARY KEY, \n"
                 + "aika datetime NOT NULL, \n"
