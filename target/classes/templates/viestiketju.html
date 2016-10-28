@@ -4,7 +4,8 @@
     <head>
         <title th:text="${aihealue.nimi}">nimi</title>
         <meta charset="utf-8" />
- 
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+        <link rel="stylesheet" type ="text/css" media="all" href="/tyylit.css"/>
  
     </head>
  
@@ -16,14 +17,13 @@
         </form>
         <table width="600">
             <tr>
-                <td>Viestiketjun nimi</td>
-                <td>Viestien määrä</td> 
-                <td>Viimeisin viesti</td>
-                <td>Viestinaika</td>                              
+                <th>Viestiketjun nimi</th>
+                <th>Viestien määrä</th> 
+                <th>Viimeisin viesti</th>
+                <th>Viestinaika</th>                              
             </tr>
             
-        </table>
-        <table>
+       
             <tr th:each="viestiketju: ${viestiketjut}">
                 <td><a th:href="@{~/aihealue/viestiketju/{id}(id=${viestiketju.id})}"
                        th:text="${viestiketju.nimi}">1</a></td>
@@ -43,8 +43,8 @@
             <input type="text" name="nimimerkki" size="20" maxlength="20"/><br/>
             <br/>            
             Viesti:<br/>
-            <input type="text" name="sisalto" maxlength="300" style="width:300px;height:250px;" /><br/> <br/>
-            <input type="submit" value="Lisää viestiketju"/>
+            <input type="text" name="sisalto" maxlength="300" style="width:300px;height:250px;" class="textarea" /><br/> <br/>
+            <input type="submit" value="Lisää viestiketju" class="button"/>
         </form>
     </body>
 </html>

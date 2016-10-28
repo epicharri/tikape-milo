@@ -4,6 +4,8 @@
     <head>
         <title th:text="${viestiketju.aihealue.nimi} + ' &raquo; ' + ${viestiketju.otsikko}">teksti</title>
         <meta charset="UTF-8"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+        <link rel="stylesheet" type ="text/css" media="all" href="/tyylit.css"/>
  
     </head>
     <body>
@@ -13,11 +15,19 @@
         </form>
 
        
-        <table width="800" border="1">
-        <tr th:each="viesti: ${viestit}">
-            <td th:text="${viesti.nimimerkki} + ' ' + ${viesti.aika}">nimimerkki</td>
-            <td th:text="${viesti.sisalto}">nimimerkki</td>
-        </tr>
+        <table width="800">
+            <tr>
+                <th>Nimimerkki</th>
+                <th>Viesti</th>
+                <th>Aika</th>
+            </tr>
+            
+            <tr th:each="viesti: ${viestit}">
+                <td th:text="${viesti.nimimerkki}">nimimerkki</td>
+
+                <td th:text="${viesti.sisalto}">sisältö</td>
+                <td th:text="${viesti.aika}">aika</td>
+            </tr>
         </table>    
         <br/>
         <br/>
@@ -26,8 +36,8 @@
             <input type="text" name="nimimerkki" size="20" maxlength="20"/><br/>
             <br/>            
             Viesti:<br/>
-            <input type="text" name="sisalto" maxlength="300" style="width:300px;height:250px;" /><br/> <br/>
-            <input type="submit" value="Lähetä viesti"/>
+            <input type="text" name="sisalto" maxlength="300" style="width:300px;height:250px;" class="textarea" /><br/> <br/>
+            <input type="submit" value="Lähetä viesti" class="button"/>
         </form>
     </body>
 </html>

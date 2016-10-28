@@ -2,6 +2,7 @@ package tikape.runko;
 
 import java.util.HashMap;
 import spark.ModelAndView;
+import spark.Spark;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
@@ -13,6 +14,8 @@ public class Main {
         Database database = new Database("jdbc:sqlite:foorumi.db");
         database.init();
  
+         Spark.staticFileLocation("/templates");
+        
         ViestiDao vDao = new ViestiDao(database);
         ViestiketjuDao vkDao = new ViestiketjuDao(database);
         AihealueDao aDao = new AihealueDao(database);
