@@ -66,9 +66,9 @@ public class Database {
     }
     private List<String> postgreLauseet(){
         ArrayList<String> lista = new ArrayList<>();
-        //lista.add("DROP TABLE Viesti");
-        //lista.add("DROP TABLE Viestiketju");
-        //lista.add("DROP TABLE Aihealue");
+        lista.add("DROP TABLE Viesti");
+        lista.add("DROP TABLE Viestiketju");
+        lista.add("DROP TABLE Aihealue");
         lista.add("CREATE TABLE Viesti (\n"
                 + "id integer SERIAL PRIMARY KEY, \n"
                 + "aika datetime NOT NULL, \n"
@@ -83,6 +83,14 @@ public class Database {
         lista.add("CREATE TABLE Aihealue (\n"
                 + "id integer SERIAL PRIMARY KEY, \n"
                 + "nimi varchar(30) NOT NULL);");
+                lista.add("INSERT INTO Aihealue(nimi) VALUES ('Koirat');");
+        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
+        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kilpikonnat'");
+        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Milo on cute!', 1);");
+        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kissat on parast', 2);");
+        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kilpparit haisee', 3);");
+        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 4);");
+        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
         
         return lista;
     }
