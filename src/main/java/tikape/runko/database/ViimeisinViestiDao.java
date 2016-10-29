@@ -62,7 +62,7 @@ public class ViimeisinViestiDao {
 
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
-                + "Viestiketju WHERE aihealue == ?;");
+                + "Viestiketju WHERE aihealue LIKE ?;");
         stmt.setObject(1, aihealueId);
         //stmt.setObject(1, Integer.toString(aihealueId));
 
