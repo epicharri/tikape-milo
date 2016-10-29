@@ -145,10 +145,11 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(id) FROM Viesti;");
         ResultSet rs = stmt.executeQuery();
        
-        int määrä;
-       
-        määrä = rs.getInt(1);
-               
+        int määrä = 0;
+        
+        if (rs.next()) {
+            määrä = rs.getInt(1);
+        }
         rs.close();
         stmt.close();
         connection.close();
@@ -164,7 +165,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         "AND a.id = ?;");
         stmt.setString(1, id.toString());
         ResultSet rs = stmt.executeQuery();
-        int määrä = rs.getInt(1);
+        int määrä = 0;
+        if (rs.next()) {
+            määrä = rs.getInt(1);
+        }
  
         rs.close();
         stmt.close();
@@ -180,7 +184,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         "AND vk.id = ?;");
         stmt.setString(1, id.toString());
         ResultSet rs = stmt.executeQuery();
-        int määrä = rs.getInt(1);
+        int määrä = 0;
+        if (rs.next()) {
+            määrä = rs.getInt(1);
+        }
  
         rs.close();
         stmt.close();
