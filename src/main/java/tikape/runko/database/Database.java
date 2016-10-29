@@ -158,7 +158,10 @@ public class Database {
         return changes;
     }
 
-
+/*
+    // Tässä vissiin pitää käyttää while(rs.next()) eikä for-luuppia. Tai 
+    ainakin pitää joka välissä varmistaa rs.next(). (Harri)
+    
     private void debug(ResultSet rs) throws SQLException {
         int columns = rs.getMetaData().getColumnCount();
         for (int i = 0; i < columns; i++) {
@@ -172,5 +175,5 @@ public class Database {
         
         System.out.println();
     }
-
+*/
 }

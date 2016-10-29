@@ -40,8 +40,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         String aika = rs.getString("aika");
         String sisalto = rs.getString("sisalto");
  
-        Viestiketju viestiketju = this.viestiketjuDao.findOne(rs.getInt("id"));
- 
+        //Viestiketju viestiketju = this.viestiketjuDao.findOne(rs.getInt("id"));
+        Viestiketju viestiketju = this.viestiketjuDao.findOne(id);
+
+        
         rs.close();
         stmt.close();
         connection.close();
@@ -63,8 +65,9 @@ public class ViestiDao implements Dao<Viesti, Integer> {
             String aika = rs.getString("aika");
             String sisalto = rs.getString("sisalto");
  
-            Viestiketju viestiketju = this.viestiketjuDao.findOne(rs.getInt("id"));
- 
+            //Viestiketju viestiketju = this.viestiketjuDao.findOne(rs.getInt("id"));
+            Viestiketju viestiketju = this.viestiketjuDao.findOne(id);
+
             viestit.add(new Viesti(id, viestiketju, nimimerkki, sisalto, aika));
         }
  
@@ -80,7 +83,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
  
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("DELETE FROM Viesti WHERE id = ?;");
-        stmt.setString(1, key.toString());
+        stmt.setInt(1, key);
         stmt.executeUpdate();
  
         stmt.close();
@@ -103,7 +106,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
             String aika = rs.getString("aika");
             String sisalto = rs.getString("sisalto");
  
-            Viestiketju viestiketju = this.viestiketjuDao.findOne(rs.getInt("id"));
+            Viestiketju viestiketju = this.viestiketjuDao.findOne(id);
  
             viestit.add(new Viesti(id, viestiketju, nimimerkki, sisalto, aika));
         }
@@ -123,20 +126,20 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         } else {
             
         
-        Connection connection = database.getConnection();
-        
- 
-        java.util.Date paiva = new java.util.Date();
-        Timestamp aika = new Timestamp(paiva.getTime());
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viesti(viestiketju, aika, nimimerkki, sisalto) "
-                + "VALUES(?,?,?,?);");
-        stmt.setString(1, viestiketjuId.toString());
-        stmt.setString(2, aika.toString());
-        stmt.setString(3, nimimerkki.toString());
-        stmt.setString(4, sisalto.toString());
-        stmt.executeUpdate();
-        stmt.close();
-        connection.close();
+            Connection connection = database.getConnection();
+
+
+            java.util.Date paiva = new java.util.Date();
+            Timestamp aika = new Timestamp(paiva.getTime());
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viesti(viestiketju, aika, nimimerkki, sisalto) "
+                    + "VALUES(?,?,?,?);");
+            stmt.setInt(1, viestiketjuId);
+            stmt.setString(2, aika.toString());
+            stmt.setString(3, nimimerkki.toString());
+            stmt.setString(4, sisalto.toString());
+            stmt.executeUpdate();
+            stmt.close();
+            connection.close();
         }
     }
  
@@ -163,7 +166,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         "WHERE a.id = vk.aihealue " +
         "AND vk.id = v.viestiketju " +
         "AND a.id = ?;");
-        stmt.setString(1, id.toString());
+        stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         int määrä = 0;
         if (rs.next()) {
@@ -182,7 +185,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         "FROM Viestiketju vk, Viesti v " +
         "WHERE vk.id = v.viestiketju " +
         "AND vk.id = ?;");
-        stmt.setString(1, id.toString());
+        stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         int määrä = 0;
         if (rs.next()) {

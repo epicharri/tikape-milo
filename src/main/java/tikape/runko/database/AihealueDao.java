@@ -69,7 +69,7 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
     public void delete(Integer key) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("DELETE FROM Aihealue WHERE id = ?;");
-        stmt.setString(1, key.toString());
+        stmt.setInt(1, key);
         stmt.executeQuery();
         stmt.close();
         connection.close();

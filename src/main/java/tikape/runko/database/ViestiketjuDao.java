@@ -26,7 +26,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
                 + "Viestiketju WHERE id = ?;");
         stmt.setObject(1, key);
- 
+ // miksei yllä stmt.setInt(1, key);??
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
         if (!hasOne) {
@@ -74,7 +74,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
  
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("DELETE FROM Viestiketju WHERE id = ?;");
-        stmt.setString(1, key.toString());
+        stmt.setInt(1, key);
         stmt.executeQuery();
         stmt.close();
         connection.close();
@@ -85,7 +85,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM "
                 + "Viestiketju WHERE aihealue LIKE ?;");
-        stmt.setObject(1, Integer.toString(aihealueId));
+        stmt.setObject(1, aihealueId);
         ResultSet rs = stmt.executeQuery();
         Aihealue aihealue = this.aihealueDao.findOne(aihealueId);
        
@@ -130,7 +130,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viestiketju(aihealue, otsikko) "
                 + "VALUES( ?, ?);");
         
-        stmt.setString(1, aihealueId.toString());
+        stmt.setInt(1, aihealueId);
         stmt.setString(2, otsikko);
         stmt.executeUpdate();
  
