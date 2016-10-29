@@ -124,8 +124,9 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         if (nimimerkki.isEmpty()|| sisalto.isEmpty()){
             return;
         } else {
+            nimimerkki = (nimimerkki.length() > 20) ? nimimerkki.substring(0, 20) : nimimerkki;
+            sisalto = (sisalto.length() > 300) ? sisalto.substring(0, 300) : sisalto;
             
-        
             Connection connection = database.getConnection();
 
 
@@ -134,9 +135,9 @@ public class ViestiDao implements Dao<Viesti, Integer> {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Viesti(viestiketju, aika, nimimerkki, sisalto) "
                     + "VALUES(?,?,?,?);");
             stmt.setInt(1, viestiketjuId);
-            stmt.setString(2, aika.toString());
-            stmt.setString(3, nimimerkki.toString());
-            stmt.setString(4, sisalto.toString());
+            stmt.setObject(2, aika);
+            stmt.setString(3, nimimerkki);
+            stmt.setString(4, sisalto);
             stmt.executeUpdate();
             stmt.close();
             connection.close();
