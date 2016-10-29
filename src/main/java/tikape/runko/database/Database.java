@@ -34,11 +34,12 @@ public class Database {
 
                 return DriverManager.getConnection(dbUrl, username, password);
             } catch (Throwable t) {
-                System.out.println("Error: " + t.getMessage());
+                System.out.println("VIRHE Database.java: getConnection() -metodissa, try ei onnistunut. Error: " + t.getMessage());
                 t.printStackTrace();
             }
+            
         }
-
+        System.out.println("POSTGRESYHTEYTTÄ EI LUOTU. LUODAAN YHTEYS PAIKALLISEN KONEEN OSOITTEESEEN: "+ databaseAddress);
         return DriverManager.getConnection(databaseAddress);
     }
 
@@ -46,8 +47,11 @@ public class Database {
         List<String> lauseet = null;
         if (this.databaseAddress.contains("postgres")) {
             lauseet = postgreLauseet();
+            System.out.println("Database:init() valitsi lauseet postgreLauseet()");
         } else {
             lauseet = sqliteLauseet();
+            System.out.println("Database:init() valitsi lauseet sqliteLauseet()");
+
         }
         // "try with resources" sulkee resurssin automaattisesti lopuksi
         try (Connection conn = getConnection()) {
@@ -91,13 +95,13 @@ public class Database {
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
         lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kilpikonnat');");
        
-        /*
+        
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Milo on cute!', 1);");
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kissat on parast', 2);");
         lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kilpparit haisee', 3);");
         lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(('now'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 2);");
         lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(('now'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
-        */
+        System.out.println("POSTGRESLISTA ON LUOTU JA SEN SISÄLTÖ ON, tostringillä: " + lista.toString());
         return lista;
     }
     private List<String> sqliteLauseet() {
