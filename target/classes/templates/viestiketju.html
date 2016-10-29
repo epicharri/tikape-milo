@@ -1,0 +1,68 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+ 
+    <head>
+        <title th:text="${aihealue.nimi}">nimi</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"/>
+
+
+        <link rel="stylesheet" type ="text/css" media="all" href="/tyylit.css"/>
+ 
+    </head>
+ 
+    <body>
+        <div class="container">
+        <h1 th:text="${aihealue.nimi}">nimi</h1>
+        <form>
+            Viestejä yhteensä:<b><br th:text="${viestienMaara}">maara></br></b>
+        </form>
+        <table width="600">
+            <tr>
+                <th>Viestiketjun nimi</th>
+                <th>Viestien määrä</th> 
+                <th>Viimeisin viesti</th>
+                <th>Viestinaika</th>                              
+            </tr>
+            
+       
+            <tr th:each="viestiketju: ${viestiketjut}">
+                <td><a th:href="@{~/aihealue/viestiketju/{id}(id=${viestiketju.id})}"
+                       th:text="${viestiketju.nimi}">1</a></td>
+                <td th:text="${viestiketju.viestienMaara}">viestienMaara</td> 
+                <td th:text="${viestiketju.sisalto}">viestinsisalto</td>
+                <td th:text="${viestiketju.aika}">viestinaika</td>                              
+            </tr>
+           
+        </table>
+        <a href="/aihealue" class="waves-effect waves-light btn pink">Palaa</a>
+
+        <h3>Luo uusi viestiketju</h3>
+ 
+        <div class="row">
+            <form method="POST" class="col s12">
+                <div class="row">
+                        Otsikko:<br/>
+                        <input type="text" name="viestiketju"/>
+                </div><br/>
+                
+                <div class="row">
+                        Nimimerkki: <br/>
+                        <input type="text" name="nimimerkki" size="20" maxlength="20"/><br/>
+                </div><br/>
+                <div class="row">
+                    <div class="input-field col s12">
+                        Viesti:<br/>
+                        <input type="text" name="sisalto" maxlength="300" style="height:250px;" class="tekstialue" /><br/> <br/>
+                        <input type="submit" value="Lisää viestiketju" class="waves-effect waves-light btn pink"/>
+               
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+    </body>
+</html>

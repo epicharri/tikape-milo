@@ -36,20 +36,33 @@
             </tr>
            
         </table>
-        <h2><a href="/aihealue" class="nappi">Palaa</a></h2>
+        <a href="/aihealue" class="waves-effect waves-light btn pink">Palaa</a>
 
         <h3>Luo uusi viestiketju</h3>
  
-        <form method="POST" >
-            Otsikko:<br/>
-            <input type="text" name="viestiketju"/><br/>
-            Nimimerkki: <br/>
-            <input type="text" name="nimimerkki" size="20" maxlength="20"/><br/>
-            <br/>            
-            Viesti:<br/>
-            <input type="text" name="sisalto" maxlength="300" style="width:300px;height:250px;" class="tekstialue" /><br/> <br/>
-            <input type="submit" value="Lisää viestiketju" class="nappi"/>
-        </form>
+        <div class="row">
+            <form method="POST" class="col s12">
+                <div class="row">
+                        Otsikko:<br/>
+                        <input type="text" name="viestiketju"/>
+                </div><br/>
+                
+                <div class="row">
+                        Nimimerkki: <br/>
+                        <input type="text" name="nimimerkki" size="20" maxlength="20"/><br/>
+                </div><br/>
+                <div class="row">
+                    <div class="input-field col s12">
+                        Viesti:<br/>
+                        <input type="text" name="sisalto" maxlength="300" style="height:250px;" class="tekstialue" /><br/> <br/>
+                        <input type="submit" value="Lisää viestiketju" class="waves-effect waves-light btn pink"/>
+               
+                    </div>
+                </div>
+            </form>
         </div>
+        </div>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
     </body>
 </html>
