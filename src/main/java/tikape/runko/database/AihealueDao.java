@@ -80,6 +80,9 @@ public class AihealueDao implements Dao<Aihealue, Integer> {
         if (nimi.isEmpty()){
             return;
         }
+        if (nimi.length() > 30) {
+            nimi = nimi.substring(0, 30);
+        }
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Aihealue(nimi) VALUES(?);");
         stmt.setString(1, nimi);
