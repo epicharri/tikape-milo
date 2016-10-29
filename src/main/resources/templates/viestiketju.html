@@ -4,13 +4,16 @@
     <head>
         <title th:text="${aihealue.nimi}">nimi</title>
         <meta charset="utf-8" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"/>
+
+
         <link rel="stylesheet" type ="text/css" media="all" href="/tyylit.css"/>
  
     </head>
  
     <body>
- 
+        <div class="container">
         <h1 th:text="${aihealue.nimi}">nimi</h1>
         <form>
             Viestejä yhteensä:<b><br th:text="${viestienMaara}">maara></br></b>
@@ -47,5 +50,6 @@
             <input type="text" name="sisalto" maxlength="300" style="width:300px;height:250px;" class="tekstialue" /><br/> <br/>
             <input type="submit" value="Lisää viestiketju" class="nappi"/>
         </form>
+        </div>
     </body>
 </html>

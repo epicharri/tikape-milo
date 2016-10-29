@@ -24,6 +24,7 @@ public class Database {
     }
 
     public Connection getConnection() throws SQLException {
+        boolean paikallinenDB = true;
         if (this.databaseAddress.contains("postgres")) {
             try {
                 URI dbUri = new URI(databaseAddress);
@@ -36,15 +37,19 @@ public class Database {
             } catch (Throwable t) {
                 System.out.println("VIRHE Database.java: getConnection() -metodissa, try ei onnistunut. Error: " + t.getMessage());
                 t.printStackTrace();
+                paikallinenDB = false;
             }
             
         }
-        System.out.println("POSTGRESYHTEYTTÄ EI LUOTU. LUODAAN YHTEYS PAIKALLISEN KONEEN OSOITTEESEEN: "+ databaseAddress);
-        return DriverManager.getConnection(databaseAddress);
+        System.out.println("POSTGRESYHTEYTTÄ EI LUOTU.");
+        if (paikallinenDB) {
+            return DriverManager.getConnection(databaseAddress);
+        }
+        return null;
     }
 
     public void init() {
-        List<String> lauseet = null;
+        List<String> lauseet;
         if (this.databaseAddress.contains("postgres")) {
             lauseet = postgreLauseet();
             System.out.println("Database:init() valitsi lauseet postgreLauseet()");
@@ -66,6 +71,7 @@ public class Database {
         } catch (Throwable t) {
             // jos tietokantataulu on jo olemassa, ei komentoja suoriteta
             System.out.println("Error >> " + t.getMessage());
+            System.out.println("Yhteyttä Herokun palvelimeen ei nyt saatu.");
         }
     }
     private List<String> postgreLauseet(){
@@ -108,28 +114,28 @@ public class Database {
         ArrayList<String> lista = new ArrayList<>();
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
-//        lista.add("CREATE TABLE Viesti (\n"
-//                + "id integer PRIMARY KEY, \n"
-//                + "aika datetime NOT NULL, \n"
-//                + "nimimerkki varchar(20) NOT NULL, \n"
-//                + "sisalto varchar(300) NOT NULL, \n"
-//                + "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
-//        lista.add("CREATE TABLE Viestiketju (\n"
-//                + "id integer PRIMARY KEY, \n"
-//                + "otsikko varchar(30) NOT NULL,\n"
-//                + "aihealue, \n"
-//                + "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
-//        lista.add("CREATE TABLE Aihealue (\n"
-//                + "id integer PRIMARY KEY, \n"
-//                + "nimi varchar(30) NOT NULL);");
-//        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Koirat');");
-//        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
-//        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kilpikonnat'");
-//        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Milo on cute!', 1);");
-//        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kissat on parast', 2);");
-//        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kilpparit haisee', 3);");
-//        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 4);");
-//        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
+        lista.add("CREATE TABLE Viesti (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "aika datetime NOT NULL, \n"
+                + "nimimerkki varchar(20) NOT NULL, \n"
+                + "sisalto varchar(300) NOT NULL, \n"
+                + "viestiketju, FOREIGN KEY(viestiketju) REFERENCES Viestiketju(id));");
+        lista.add("CREATE TABLE Viestiketju (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "otsikko varchar(30) NOT NULL,\n"
+                + "aihealue, \n"
+                + "FOREIGN KEY(aihealue) REFERENCES Aihealue(id));");
+        lista.add("CREATE TABLE Aihealue (\n"
+                + "id integer PRIMARY KEY, \n"
+                + "nimi varchar(30) NOT NULL);");
+        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Koirat');");
+        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kissat');");
+        lista.add("INSERT INTO Aihealue(nimi) VALUES ('Kilpikonnat'");
+        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Milo on cute!', 1);");
+        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kissat on parast', 2);");
+        lista.add("INSERT INTO Viestiketju(otsikko, aihealue) VALUES ('Kilpparit haisee', 3);");
+        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Liitu', 'Heippa kaikki. Kilpparit on oikeesti ihan tyhmii.', 4);");
+        lista.add("INSERT INTO Viesti(aika, nimimerkki, sisalto, viestiketju) VALUES(datetime('now', 'localtime'), 'Patu', 'Heippa kaikki. Kissat on oikeesti ihan supertyhmiityhmii.', 2);");
         return lista;
     }
     

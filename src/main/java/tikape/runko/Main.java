@@ -12,8 +12,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         String jdbcOsoite = "jdbc:sqlite:foorumi.db";
-        System.out.println("URL TSEKKAUS: DATABASE_URL = " +
-                System.getenv("DATABASE_URL").toString());
         
         
         if (System.getenv("PORT") != null) {
@@ -22,7 +20,7 @@ public class Main {
         }
         if (System.getenv("DATABASE_URL") != null) {
             jdbcOsoite = System.getenv("DATABASE_URL");
-            System.out.println("TSEKKAUS: jdbcOsoite = DATABASE_URL = "+jdbcOsoite);
+
         }
          
         Database database = new Database(jdbcOsoite);
