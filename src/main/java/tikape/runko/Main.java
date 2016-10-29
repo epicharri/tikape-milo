@@ -24,7 +24,7 @@ public class Main {
             jdbcOsoite = System.getenv("DATABASE_URL");
             System.out.println("TSEKKAUS: jdbcOsoite = DATABASE_URL = "+jdbcOsoite);
         }
-        
+         
         Database database = new Database(jdbcOsoite);
         
  

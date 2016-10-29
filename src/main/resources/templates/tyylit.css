@@ -37,7 +37,7 @@ a:visited {
     opacity: 0.8;
 }
 
-a.button {
+.button {
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
@@ -53,22 +53,10 @@ a.button {
     padding: 4px;
 }
 
-input.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
 
-    border-radius: 2px 2px 2px 2px;
-        -moz-border-radius: 2px 2px 2px 2px;
-        -webkit-border-radius: 2px 2px 2px 2px;
-    border: 0px solid #000000; 
-    
-    text-decoration: none;
-    color: white;
-    background-color: blue;
-    padding: 4px;
-}
 
-input.textarea {
+
+
+.textarea {
     vertical-align: text-top;
 }
